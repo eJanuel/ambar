@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../utils/types/Store.types";
+import { AppDispatch } from "../../../../redux/types/Store.types";
 
 
 const GearSettingsForm: React.FC<{ nextStep: () => void }> = ({

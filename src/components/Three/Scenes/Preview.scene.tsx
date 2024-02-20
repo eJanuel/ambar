@@ -1,10 +1,10 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import React from "react";
-import { groundTextures } from "../../../utils/helpers/Textures.helper";
-import { Map } from "../../../utils/types/Map.types";
+import { groundTextures } from "../../../game/logic/helpers/Textures.helper";
+import { Map } from "../../../game/logic/types/Map.types";
 import PreviewCamera from "../Cameras/Preview.camera";
 import BlockMemo from "../Geometry/Block.geometry";
-import { VOID_TYPES_ENUM } from "../../../utils/types/enums/Cells.enum";
+import { VOID_TYPES_ENUM } from "../../../game/logic/types/enums/Cells.enum";
 
 interface PreviewSceneProps {
   map: Map | null;

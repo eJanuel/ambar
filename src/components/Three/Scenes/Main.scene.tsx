@@ -1,12 +1,12 @@
 import { Canvas } from "@react-three/fiber";
 import React from "react";
 import { useSelector } from "react-redux";
-import { groundTextures } from "../../../utils/helpers/Textures.helper";
-import { Map } from "../../../utils/types/Map.types";
-import { RootState } from "../../../utils/types/Store.types";
+import { groundTextures } from "../../../game/logic/helpers/Textures.helper";
+import { Map } from "../../../game/logic/types/Map.types";
+import { RootState } from "../../../redux/types/Store.types";
 import TopDownCameraControls from "../Cameras/TopDown.camera.controls";
 import BlockMemo from "../Geometry/Block.geometry";
-import { VOID_TYPES_ENUM } from "../../../utils/types/enums/Cells.enum";
+import { VOID_TYPES_ENUM } from "../../../game/logic/types/enums/Cells.enum";
 import * as THREE from "three";
 
 const MainScene: React.FC = () => {

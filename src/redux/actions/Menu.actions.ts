@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Map } from '../utils/types/Map.types';
+import { Map } from '../../game/logic/types/Map.types';
 
 
 interface mapInputPayloadString {

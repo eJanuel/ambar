@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { Map } from '../utils/types/Map.types';
-import { generateMap } from '../utils/functions/generators/Map.generator';
+import { Map } from '../../game/logic/types/Map.types';
+import { generateMap } from '../../game/logic/functions/generators/Map.generator';
 
 interface MapState {
   worldmap: Map;

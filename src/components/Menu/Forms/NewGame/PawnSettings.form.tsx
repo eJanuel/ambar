@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../utils/types/Store.types";
-import { generateNewPawn } from "../../../../reducers/Pawn.reducer";
-import { Pawn, Skills } from "../../../../utils/types/Pawn.types";
+import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
+import { generateNewPawn } from "../../../../redux/reducers/Pawn.reducer";
+import { Pawn, Skills } from "../../../../game/logic/types/Pawn.types";
 
 const PawnSettingsForm: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   const pawns: Pawn[] = useSelector((state: RootState) => state.pawn.pawns);

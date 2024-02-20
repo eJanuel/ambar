@@ -1,5 +1,5 @@
 import React from "react";
-import MainScene from "../components/Three/Scenes/Main.scene";
+import MainScene from "../Three/Scenes/Main.scene";
 
 const GameContainer: React.FC = () => {
   return (

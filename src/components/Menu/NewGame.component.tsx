@@ -5,7 +5,7 @@ import NarratorSettingsForm from "./Forms/NewGame/NarratorSettings.form";
 import PawnSettingsForm from "./Forms/NewGame/PawnSettings.form";
 import GearSettingsForm from "./Forms/NewGame/GearSettings.form";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../utils/types/Store.types";
+import { AppDispatch, RootState } from "../../redux/types/Store.types";
 
 interface NewGameFormProps {
   returnToMenu: () => void;

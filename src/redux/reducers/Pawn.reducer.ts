@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { generateRandomPawn } from '../utils/functions/generators/Pawn.generator';
-import { Pawn } from '../utils/types/Pawn.types';
-import { RootState } from '../utils/types/Store.types';
+import { generateRandomPawn } from '../../game/logic/functions/generators/Pawn.generator';
+import { Pawn } from '../../game/logic/types/Pawn.types';
+import { RootState } from '../types/Store.types';
 
 interface PawnState {
   pawns: Pawn[];

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../utils/types/Store.types";
-import { toggleDevMode } from '../reducers/UI.reducer';
-import DevUI from "../components/UI/Dev/Dev-UI.component";
+import { RootState } from "../../redux/types/Store.types";
+import { toggleDevMode } from '../../redux/reducers/UI.reducer';
+import DevUI from "../UI/Dev/Dev-UI.component";
 
 const UIContainer: React.FC = () => {
   const dispatch = useDispatch();

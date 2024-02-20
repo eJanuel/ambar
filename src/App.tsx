@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import GameContainer from "./containers/Game.container";
-import UIContainer from "./containers/UIContainer";
-import MenuContainer from "./containers/Menu.container";
-import { RootState } from "./utils/types/Store.types";
+import GameContainer from "./components/Containers/Game.container";
+import UIContainer from "./components/Containers/UIContainer";
+import MenuContainer from "./components/Containers/Menu.container";
+import { RootState } from "./redux/types/Store.types";
 
-// TODO: Rearrange the files to have on one side the web components and the game ones on another
+// TODO: Refactor the game logic to use Classes instead of interfaces
 // TODO: Rewrite CSS with grid
 
 const App: React.FC = () => {

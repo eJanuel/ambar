@@ -1,8 +1,8 @@
-import { Map } from "../../../../utils/types/Map.types";
+import { Map } from "../../../../game/logic/types/Map.types";
 import PreviewScene from "../../../Three/Scenes/Preview.scene";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../utils/types/Store.types";
-import { generateNewMap } from "../../../../reducers/Menu.reducer";
+import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
+import { generateNewMap } from "../../../../redux/reducers/Menu.reducer";
 
 const SIZE_MIN = 16;
 const SIZE_MAX = 256;

@@ -1,5 +1,5 @@
 import React from "react";
-import { MainMenu } from "../components/Menu/MainMenu.component";
+import { MainMenu } from "../Menu/MainMenu.component";
 
 const MenuContainer: React.FC = () => {
   return (

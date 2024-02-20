@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../utils/types/Store.types";
+import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 
 enum NARRATOR {
   MERCHANT = "merchant",
