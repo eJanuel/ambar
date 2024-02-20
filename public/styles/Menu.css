@@ -1,5 +1,5 @@
 #MenuContainer {
-    background-image: url('../menu-bg.png');
+    background-image: url('/assets/bg-menu-1.png');
     background-color: #a3e8dbe6;
     display: flex;
     flex-direction: column;

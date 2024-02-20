@@ -4,7 +4,7 @@ import NewGameForm from "./NewGame.component";
 import { NewGameIcon } from "../Icons/NewGame.icon";
 import { LoadGameIcon } from "../Icons/LoadGame.icon";
 import { SettingsIcon } from "../Icons/Settings.icon";
-import ambarLogo from "../../assets/Ambar.svg";
+import ambarLogo from "../../../public/logo.svg"
 
 interface MenuButtonProps {
   buttonText: string;

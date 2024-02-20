@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'Philosopher';
-  src: url('../fonts/Philosopher-Regular.ttf') format('truetype'),
-       url('../fonts/Philosopher-Bold.ttf') format('truetype'),
-       url('../fonts/Philosopher-Italic.ttf') format('truetype'),
-       url('../fonts/Philosopher-BoldItalic.ttf') format('truetype');
+  src: url('/fonts/Philosopher-Regular.ttf') format('truetype'),
+       url('/fonts/Philosopher-Bold.ttf') format('truetype'),
+       url('/fonts/Philosopher-Italic.ttf') format('truetype'),
+       url('/fonts/Philosopher-BoldItalic.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Anton';
-  src: url('../fonts/Anton-Regular.ttf') format('truetype');
+  src: url('/fonts/Anton-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
