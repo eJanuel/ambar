@@ -1,25 +1,25 @@
-import { TRAITS } from "../types/enums/Traits.enum";
-import { TraitEffects } from "../types/Pawn.types";
+import { TRAITS_ENUM } from "../types/enums/Traits.enum";
+import { TraitEffectMap } from "../types/Pawn.types";
 
-export const traitEffects: TraitEffects = {
-    [TRAITS.SHARPSHOOTER]: { ranged: 1 },
-    [TRAITS.TOUGH]: { melee: 1, mining: 1 },
-    [TRAITS.FAST_LEARNER]: { research: 1 },
-    [TRAITS.HANDY]: { crafting: 1, construction: 1 },
-    [TRAITS.GREEN_THUMB]: { plants: 1 },
-    [TRAITS.HEALER]: { medicine: 1 },
-    [TRAITS.CHARISMATIC]: { social: 1 },
-    [TRAITS.ANIMAL_WHISPERER]: { animals: 1 },
-    [TRAITS.MINER]: { mining: 2 },
-    [TRAITS.SCIENTIST]: { research: 2 },
-    [TRAITS.ATHLETE]: { melee: 1, ranged: 1 },
-    [TRAITS.ARTISAN]: { crafting: 2 },
-    [TRAITS.SNEAKY]: { melee: 1, ranged: 1 },
-    [TRAITS.LUCKY]: { social: 1 },
-    [TRAITS.TECH_SAVVY]: { crafting: 1, research: 1 },
-    [TRAITS.DIPLOMAT]: { social: 2 },
-    [TRAITS.MUSICIAN]: { social: 1, animals: 1 },
-    [TRAITS.NURTURER]: { plants: 1, animals: 1 },
-    [TRAITS.MYSTERIOUS]: { research: 1 },
-    [TRAITS.JOKER]: { social: 1 },
+export const traitEffects: TraitEffectMap = {
+    [TRAITS_ENUM.SHARPSHOOTER]: { ranged: 1 },
+    [TRAITS_ENUM.TOUGH]: { melee: 1, mining: 1 },
+    [TRAITS_ENUM.FAST_LEARNER]: { research: 1 },
+    [TRAITS_ENUM.HANDY]: { crafting: 1, construction: 1 },
+    [TRAITS_ENUM.GREEN_THUMB]: { plants: 1 },
+    [TRAITS_ENUM.HEALER]: { medicine: 1 },
+    [TRAITS_ENUM.CHARISMATIC]: { social: 1 },
+    [TRAITS_ENUM.ANIMAL_WHISPERER]: { animals: 1 },
+    [TRAITS_ENUM.MINER]: { mining: 2 },
+    [TRAITS_ENUM.SCIENTIST]: { research: 2 },
+    [TRAITS_ENUM.ATHLETE]: { melee: 1, ranged: 1 },
+    [TRAITS_ENUM.ARTISAN]: { crafting: 2 },
+    [TRAITS_ENUM.SNEAKY]: { melee: 1, ranged: 1 },
+    [TRAITS_ENUM.LUCKY]: { social: 1 },
+    [TRAITS_ENUM.TECHNICIAN]: { crafting: 1, research: 1 },
+    [TRAITS_ENUM.DIPLOMAT]: { social: 2 },
+    [TRAITS_ENUM.MUSICIAN]: { social: 1, animals: 1 },
+    [TRAITS_ENUM.NURTURER]: { plants: 1, animals: 1 },
+    [TRAITS_ENUM.MYSTERIOUS]: { research: 1 },
+    [TRAITS_ENUM.JOKER]: { social: 1 },
 };

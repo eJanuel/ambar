@@ -2,7 +2,7 @@ import { Body, CustomSkills, Entity, Faction, Gear, Infos, Inventory, Pawn, Rela
 import { masculineFirstNames, feminineFirstNames } from "../../datas/firstNames.list";
 import { lastNames } from "../../datas/lastNames.list";
 import { traitEffects } from "../../helpers/TraitEffects.helper";
-import { TRAITS } from "../../types/enums/Traits.enum";
+import { TRAITS_ENUM } from "../../types/enums/Traits.enum";
 
 const skillsKeys: (keyof Skills)[] = ['melee', 'ranged', 'crafting', 'construction', 'cooking', 'medicine', 'social', 'animals', 'plants', 'mining', 'research'];
 
@@ -76,17 +76,21 @@ export const generateRandomSkills = (skillPoints: number, traits: Traits): Skill
     research: 0,
   };
 
-  for (let trait of traits) {
-    const effect = traitEffects[trait];
-    if (effect) {
-      for (let skill in effect) {
-        randomizedSkills[skill as keyof Skills] += effect[skill as keyof Skills]!;
-      }
-    }
-  }
+  let previousSkill: keyof Skills | null = null;
+  let skillWeight = 1;
 
   for (let i = 0; i < skillPoints; i++) {
-    const randomSkill = skillsKeys[Math.floor(Math.random() * skillsKeys.length)] as keyof Skills;
+    let randomSkill: keyof Skills;
+
+    if (previousSkill && Math.random() < skillWeight) {
+      randomSkill = previousSkill;
+      skillWeight *= 0.9; // Reduce the weight for adding a point to the same previous skill
+    } else {
+      randomSkill = skillsKeys[Math.floor(Math.random() * skillsKeys.length)] as keyof Skills;
+      previousSkill = randomSkill;
+      skillWeight = 1; // Reset the weight to initial if a different skill is randomized
+    }
+
     randomizedSkills[randomSkill]++;
   }
 
@@ -94,9 +98,9 @@ export const generateRandomSkills = (skillPoints: number, traits: Traits): Skill
 }
 
 export const generateRandomTraits = (): Traits => {
-  const traitsKeys = Object.values(TRAITS);
+  const traitsKeys = Object.values(TRAITS_ENUM);
   let traits: Traits = [];
-  let traitCount = Math.floor(Math.random() * 3);
+  let traitCount = Math.random() < 0.6 ? 2 : Math.floor(Math.random() * 3) + 1;
 
   for (let i = 0; i < traitCount;) {
     let randomIndex = Math.floor(Math.random() * traitsKeys.length);

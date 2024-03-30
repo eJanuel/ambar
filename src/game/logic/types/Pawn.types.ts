@@ -1,5 +1,5 @@
 import { BONES_ENUM } from "./enums/Bones.enum";
-import { TRAITS } from "./enums/Traits.enum";
+import { TRAITS_ENUM } from "./enums/Traits.enum";
 
 export interface Pawn {
     entity: Entity;
@@ -83,8 +83,8 @@ export interface Gear {
     [key: string]: number;
 }
 
-export type Traits = TRAITS[];
+export type Traits = TRAITS_ENUM[];
 
-export interface TraitEffects {
+export interface TraitEffectMap {
     [key: string]: Partial<Skills>;
 }
