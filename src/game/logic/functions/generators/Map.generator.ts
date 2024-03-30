@@ -66,25 +66,28 @@ const generateBaseLayers = (size: number, height: number): MapCell[][][] => {
 };
 
 
-export const generateMap = (size: number, height: number, seed?: string): { grid: MapCell[][][], seed: string } => {
+export const generateMap = (size: number, height: number, hasCave: boolean, seed?: string): { grid: MapCell[][][], seed: string } => {
   const rng = seed ? seedrandom(seed) : seedrandom();
   const gridMatrix: MapCell[][][] = generateBaseLayers(size, height);
 
-  const caveNoise = generateCaveNoise(rng, size, height);
+  if (hasCave) {
+    let caveNoise = generateCaveNoise(rng, size, height);
 
-  for (let x = 0; x < size; x++) {
-    for (let z = 0; z < size; z++) {
-      for (let y = 0; y < height - 3; y++) {
-        if (caveNoise(x, y, z)) {
-          const coordinates = { x, y, z };
-          const surface: VoidBlock = VOID.AIR;
-          gridMatrix[x][z][y] = {
-            coordinates,
-            surface,
-          };
+    for (let x = 0; x < size; x++) {
+      for (let z = 0; z < size; z++) {
+        for (let y = 0; y < height - 3; y++) {
+          if (caveNoise(x, y, z)) {
+            const coordinates = { x, y, z };
+            const surface: VoidBlock = VOID.AIR;
+            gridMatrix[x][z][y] = {
+              coordinates,
+              surface,
+            };
+          }
         }
       }
     }
+
   }
 
   const patternMap = generateGeologicPattern(size, rng);

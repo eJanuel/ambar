@@ -20,7 +20,7 @@ const initialState: MapState = {
 export const generateNewMap = createAsyncThunk(
   'map/generateNewMap',
   async ({ seed, size, height, biome, caves, structures }: { seed?: string, size: number, height: number, biome: string, caves: boolean, structures: boolean }) => {
-    const { grid, seed: generatedSeed } = generateMap(size, height, seed);
+    const { grid, seed: generatedSeed } = generateMap(size, height, caves, seed);
     return { seed: generatedSeed, dimensions: { size, height }, cells: grid };
   }
 );
