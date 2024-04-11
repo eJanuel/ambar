@@ -5,7 +5,6 @@ import UIContainer from "./components/Containers/UIContainer";
 import MenuContainer from "./components/Containers/Menu.container";
 import { RootState } from "./redux/types/Store.types";
 
-// TODO: Refactor the game logic to use Classes instead of interfaces
 // TODO: Rewrite CSS with grid
 
 const App: React.FC = () => {

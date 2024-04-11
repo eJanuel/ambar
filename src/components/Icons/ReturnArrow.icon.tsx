@@ -1,7 +1,7 @@
 export const ReturnArrowIcon: React.FC = () => {
   return (
-    <svg id="Layer_2" data-name="Layer 2" viewBox="0 0 110.49 21.11">
-      <g id="Layer_1-2" data-name="Layer 1">
+    <svg id="a" viewBox="0 0 110.49 21.11">
+      <g id="b">
         <g>
           <g>
             <path

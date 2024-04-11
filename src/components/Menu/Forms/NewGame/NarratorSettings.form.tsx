@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 
 enum NARRATOR {
   MERCHANT = "merchant",
-  ECONOMIST = "economist",
+  IDEOLOGY = "ideologist",
   WARRIOR = "warrior",
   VARIED = "varied",
 }
@@ -16,9 +16,26 @@ enum DIFFICULTY {
   HARD = "hard",
 }
 
-const NarratorSettingsForm: React.FC<{ nextStep: () => void }> = ({
-  nextStep,
-}) => {
+const narratorDescMap: { [key: string]: string } = {
+  [NARRATOR.MERCHANT]:
+    "The merchant narrator will most trigger events like trade caravans, pillagers attacks, trade opportunities, etc.",
+  [NARRATOR.IDEOLOGY]:
+    "The ideologist narrator will most trigger events like ideological conflicts, religious conversions, etc.",
+  [NARRATOR.WARRIOR]:
+    "The warrior narrator will most trigger events like wars, raids, etc.",
+  [NARRATOR.VARIED]:
+    "The varied narrator will trigger events from all other narrators.",
+};
+
+const difficultyDescMap: { [key: string]: string } = {
+  [DIFFICULTY.PEACEFUL]: "Only triggers unharmful events.",
+  [DIFFICULTY.EASY]: "Triggers easier and less frequent events.",
+  [DIFFICULTY.NORMAL]: "You will have time between events to recover.",
+  [DIFFICULTY.HARD]:
+    "Events will trigger more often and the game will be harder.",
+};
+
+const NarratorSettingsForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const inputs: { [key: string]: string } = useSelector(
     (state: RootState) => state.menu.newGameForm.narratorForm.inputs
@@ -26,13 +43,12 @@ const NarratorSettingsForm: React.FC<{ nextStep: () => void }> = ({
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    nextStep();
+    dispatch({ type: "menu/setStep", payload: 3 });
   };
 
   return (
     <>
       <form className="new-game-form__form" onSubmit={handleSubmit}>
-        <h3 className="new-game-form__section-title">Narrator Settings</h3>
         <div className="new-game-form__input-group">
           <div className="new-game-form__input-group-item">
             <label className="new-game-form__label">Narrator Type</label>
@@ -47,11 +63,18 @@ const NarratorSettingsForm: React.FC<{ nextStep: () => void }> = ({
               }
             >
               <option value={NARRATOR.MERCHANT}>Merchant</option>
-              <option value={NARRATOR.ECONOMIST}>Economist</option>
+              <option value={NARRATOR.IDEOLOGY}>Ideologist</option>
               <option value={NARRATOR.WARRIOR}>Warrior</option>
               <option value={NARRATOR.VARIED}>Varied</option>
             </select>
           </div>
+
+          <p className="new-game-form__select-description">
+            {narratorDescMap[inputs.type]}
+          </p>
+        </div>
+
+        <div className="new-game-form__input-group">
           <div className="new-game-form__input-group-item">
             <label className="new-game-form__label">Difficulty</label>
             <select
@@ -70,13 +93,17 @@ const NarratorSettingsForm: React.FC<{ nextStep: () => void }> = ({
               <option value={DIFFICULTY.HARD}>Hard</option>
             </select>
           </div>
+          <p className="new-game-form__select-description">
+            {difficultyDescMap[inputs.difficulty]}
+          </p>
         </div>
+
         <div className="new-game-form__input-group">
           <div className="new-game-form__input-group-item">
             <input
               className="new-game-form__submit"
               type="submit"
-              value="To Pawn Settings"
+              value="Next"
             />
           </div>
         </div>

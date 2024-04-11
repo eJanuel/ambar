@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ReturnArrowIcon } from "../Icons/ReturnArrow.icon";
 import MapSettingsForm from "./Forms/NewGame/MapSettings.form";
 import NarratorSettingsForm from "./Forms/NewGame/NarratorSettings.form";
@@ -15,35 +15,66 @@ const NewGameForm: React.FC<NewGameFormProps> = ({ returnToMenu }) => {
   const dispatch = useDispatch<AppDispatch>();
   const step: number = useSelector((state: RootState) => state.menu.step);
 
-  const nextStep = () => {
-    if (step === 4) {
-      // TODO: dispatch new game
-    } else {
-      dispatch({ type: "menu/setStep", payload: step + 1 });
+  useEffect(() => {
+    if (step === 0) {
     }
-  };
+  });
 
-  const previousStep = () => {
-    if (step === 1) {
+  const setStep = (newStep: number) => {
+    if (newStep === 0) {
       returnToMenu();
     } else {
-      dispatch({ type: "menu/setStep", payload: step - 1 });
+      dispatch({ type: "menu/setStep", payload: newStep });
     }
   };
 
   return (
-    <div className="new-game-form">
-      <div onClick={previousStep} className="new-game-form__return-button">
+    <>
+      <div
+        onClick={() => setStep(step - 1)}
+        className="new-game-form__return-button"
+      >
         <ReturnArrowIcon />
       </div>
 
-      <h2 className="new-game-form__title">New Game</h2>
+      <div className="new-game-form">
+        <h2 className="new-game-form__title">New Game</h2>
 
-      {step === 1 && <MapSettingsForm />}
-      {step === 2 && <NarratorSettingsForm nextStep={nextStep} />}
-      {step === 3 && <PawnSettingsForm nextStep={nextStep} />}
-      {step === 4 && <GearSettingsForm nextStep={nextStep} />}
-    </div>
+        <div className="new-game-form__container">
+          <div className="new-game-form__arial-line">
+            <span
+              onClick={() => setStep(1)}
+              className={step === 1 ? "active" : ""}
+            >
+              Map Settings
+            </span>
+            <span
+              onClick={() => setStep(2)}
+              className={step === 2 ? "active" : ""}
+            >
+              Narrator Settings
+            </span>
+            <span
+              onClick={() => setStep(3)}
+              className={step === 3 ? "active" : ""}
+            >
+              Pawn Settings
+            </span>
+            <span
+              onClick={() => setStep(4)}
+              className={step === 4 ? "active" : ""}
+            >
+              Gear Settings
+            </span>
+          </div>
+
+          {step === 1 && <MapSettingsForm />}
+          {step === 2 && <NarratorSettingsForm />}
+          {step === 3 && <PawnSettingsForm />}
+          {step === 4 && <GearSettingsForm />}
+        </div>
+      </div>
+    </>
   );
 };
 

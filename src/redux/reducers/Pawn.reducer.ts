@@ -18,6 +18,7 @@ export const generateNewPawn = createAsyncThunk(
   async (_, { getState }) => {
     const { newPawnId } = (getState() as RootState).pawn;
     const pawn = generateRandomPawn(`pawn${newPawnId}`, { x: 0, y: 0, z: 0 });
+  
     return pawn;
   }
 );

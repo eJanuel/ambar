@@ -34,35 +34,35 @@ const MenuButton: React.FC<MenuButtonProps> = ({
 };
 
 export const MainMenu: React.FC = () => {
-  const [clicked, setClicked] = React.useState(0);
+  const [step, setStep] = React.useState(0);
 
   return (
     <>
-      <AmbarLogoIcon hover={false} />
-
-      {clicked === 0 && (
+      {step === 0 && (
         <div className="menu-container__options">
           <MenuButton
-            buttonText="Create New Game"
+            buttonText="New Game"
             Icon={NewGameIcon}
-            onClick={() => setClicked(1)}
+            onClick={() => setStep(1)}
           />
           <MenuButton
-            buttonText="Load Existing Game"
+            buttonText="Load Game"
             Icon={LoadGameIcon}
-            onClick={() => setClicked(2)}
+            onClick={() => setStep(2)}
           />
           <MenuButton
             buttonText="Settings"
             Icon={SettingsIcon}
-            onClick={() => setClicked(3)}
+            onClick={() => setStep(3)}
           />
         </div>
       )}
 
-      {clicked === 1 && <NewGameForm returnToMenu={() => setClicked(0)} />}
+      {step === 1 && <NewGameForm returnToMenu={() => setStep(0)} />}
 
-      {clicked === 2 && <div>Load Game</div>}
+      {step === 2 && <div>Load Game</div>}
+
+      <AmbarLogoIcon hover={false} />
     </>
   );
 };

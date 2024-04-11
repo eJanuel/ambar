@@ -74,8 +74,6 @@ const MapSettingsForm: React.FC = () => {
         </div>
       )}
       <form className="new-game-form__form" onSubmit={handleSubmit}>
-        <h3 className="new-game-form__section-title">World Settings</h3>
-
         <div className="new-game-form__input-group">
           <div className="new-game-form__input-group-item">
             <label className="new-game-form__label">Seed</label>
@@ -219,7 +217,7 @@ const MapSettingsForm: React.FC = () => {
           <input
             className="new-game-form__submit"
             type="submit"
-            value="To Narrator Settings"
+            value="Next"
           />
         </div>
       </form>

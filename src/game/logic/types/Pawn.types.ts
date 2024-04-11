@@ -1,5 +1,4 @@
 import { BONES_ENUM } from "./enums/Bones.enum";
-import { TRAITS_ENUM } from "./enums/Traits.enum";
 
 export interface Pawn {
     entity: Entity;
@@ -7,11 +6,10 @@ export interface Pawn {
     body: Body;
     faction: Faction;
     skills: Skills;
-    customSkills: CustomSkills;
     relationships: Relationships;
     inventory: Inventory;
     gear: Gear;
-    traits: Traits;
+    traits: Trait[];
 }
 
 export interface Entity {
@@ -54,22 +52,34 @@ export interface Faction {
 }
 
 export interface Skills {
-    melee: number;
-    ranged: number;
-    crafting: number;
-    construction: number;
-    cooking: number;
-    medicine: number;
-    social: number;
-    animals: number;
-    plants: number;
-    mining: number;
-    research: number;
+    melee: Skill;
+    ranged: Skill;
+    crafting: Skill;
+    construction: Skill;
+    cooking: Skill;
+    medicine: Skill;
+    social: Skill;
+    animals: Skill;
+    plants: Skill;
+    mining: Skill;
+    research: Skill;
 }
 
-export interface CustomSkills {
-    [key: string]: number;
+export interface Skill {
+    level: 0,
+    experience: 0,
+    affection: 0
 }
+
+interface TraitEffect {
+    [key: string]: number;
+};
+
+export interface Trait {
+    id: number;
+    name: string;
+    effect: TraitEffect;
+};
 
 export interface Relationships {
     [key: string]: number;
@@ -81,10 +91,4 @@ export interface Inventory {
 
 export interface Gear {
     [key: string]: number;
-}
-
-export type Traits = TRAITS_ENUM[];
-
-export interface TraitEffectMap {
-    [key: string]: Partial<Skills>;
 }
