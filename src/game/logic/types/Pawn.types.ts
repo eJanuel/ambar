@@ -6,7 +6,6 @@ export interface Pawn {
     body: Body;
     faction: Faction;
     skills: Skills;
-    relationships: Relationships;
     inventory: Inventory;
     gear: Gear;
     traits: Trait[];
@@ -80,10 +79,6 @@ export interface Trait {
     name: string;
     effect: TraitEffect;
 };
-
-export interface Relationships {
-    [key: string]: number;
-}
 
 export interface Inventory {
     [key: string]: number;

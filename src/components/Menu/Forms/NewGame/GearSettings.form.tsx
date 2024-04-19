@@ -1,14 +1,12 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../redux/types/Store.types";
 
-
-const GearSettingsForm: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
+type GearSettingsFormProps = {
+  nextStep: () => void;
+};
+const GearSettingsForm: React.FC<GearSettingsFormProps> = ({ nextStep }) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch({ type: "menu/setStep", payload: 5 });
+    nextStep();
   };
 
   return (

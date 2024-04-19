@@ -157,7 +157,7 @@
 .new-game-form__input-group {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .new-game-form__input-group-item {
@@ -166,7 +166,6 @@
     align-items: center;
     justify-content: center;
     padding: 16px;
-    width: 100%;
 }
 
 .new-game-form__input-group-item-label {

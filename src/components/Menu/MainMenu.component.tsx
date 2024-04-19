@@ -6,6 +6,9 @@ import { LoadGameIcon } from "../Icons/LoadGame.icon";
 import { SettingsIcon } from "../Icons/Settings.icon";
 // import ambarLogo from "/src/logo.svg"
 import { AmbarLogoIcon } from "../Icons/AmbarLogo.icon";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/types/Store.types";
+import { GamePayload, createGame } from "../../redux/actions/Menu.actions";
 
 interface MenuButtonProps {
   buttonText: string;
@@ -35,6 +38,17 @@ const MenuButton: React.FC<MenuButtonProps> = ({
 
 export const MainMenu: React.FC = () => {
   const [step, setStep] = React.useState(0);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleLoadGame = () => {
+    const savedGameState = localStorage.getItem('savedGameState');
+
+    if (savedGameState) {
+      dispatch(createGame(JSON.parse(savedGameState) as GamePayload));
+    } else {
+      console.log('No saved game found');
+    }
+  };
 
   return (
     <>
@@ -48,7 +62,7 @@ export const MainMenu: React.FC = () => {
           <MenuButton
             buttonText="Load Game"
             Icon={LoadGameIcon}
-            onClick={() => setStep(2)}
+            onClick={() => handleLoadGame()}
           />
           <MenuButton
             buttonText="Settings"

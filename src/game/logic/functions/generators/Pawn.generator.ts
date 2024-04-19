@@ -1,4 +1,4 @@
-import { Body, Entity, Faction, Gear, Infos, Inventory, Pawn, Relationships, Skills, Trait } from "../../types/Pawn.types";
+import { Body, Entity, Faction, Gear, Infos, Inventory, Pawn, Skills, Trait } from "../../types/Pawn.types";
 import { MasculineFirstNames, FeminineFirstNames, LastNames } from "../../datas/Names.list";
 import { Traits } from "../../datas/Traits.list";
 
@@ -18,7 +18,6 @@ export const generateRandomPawn = (id: string, position: { x: number; y: number;
   const faction: Faction = { name: 'test', reputation: 0 };
   const traits: Trait[] = generateRandomTraits();
   const skills: Skills = generateRandomSkills(totalGeneratedSkillPoints);
-  const relationships: Relationships = {};
   const inventory: Inventory = {};
   const gear: Gear = {};
 
@@ -28,7 +27,6 @@ export const generateRandomPawn = (id: string, position: { x: number; y: number;
     infos,
     faction,
     skills,
-    relationships,
     inventory,
     gear,
     traits,

@@ -5,14 +5,12 @@ import UIContainer from "./components/Containers/UIContainer";
 import MenuContainer from "./components/Containers/Menu.container";
 import { RootState } from "./redux/types/Store.types";
 
-// TODO: Rewrite CSS with grid
-
 const App: React.FC = () => {
-  const mapState = useSelector((state: RootState) => state.menu.newGameForm.mapForm.currentMap);
+  const isGameRunning = useSelector((state: RootState) => state.game.isGameRunning);
 
   return (
     <>
-      {false ? (
+      {isGameRunning ? (
         <>
           <UIContainer />
           <GameContainer />

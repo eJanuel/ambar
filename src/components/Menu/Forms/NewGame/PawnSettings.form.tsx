@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
-import { generateNewPawn } from "../../../../redux/reducers/Pawn.reducer";
+import { generateNewPawn } from "../../../../redux/reducers/app/Menu.reducer";
 import { Pawn } from "../../../../game/logic/types/Pawn.types";
 
-const PawnSettingsForm: React.FC = () => {
-  const pawns: Pawn[] = useSelector((state: RootState) => state.pawn.pawns);
+type PawnSettingsFormProps = {
+  nextStep: () => void;
+}
+
+const PawnSettingsForm: React.FC<PawnSettingsFormProps> = ({ nextStep }) => {
+  const pawns: Pawn[] = useSelector((state: RootState) => state.menu.newGameForm.pawnForm.pawns);
   const dispatch = useDispatch<AppDispatch>();
   const [selectedPawn, setSelectedPawn] = useState<Pawn | null>(null);
 
@@ -21,21 +25,21 @@ const PawnSettingsForm: React.FC = () => {
     }
   }, [pawns]);
 
-  useEffect(() => {
-    if (selectedPawn !== null) {
-      console.log(selectedPawn);
+  // useEffect(() => {
+  //   if (selectedPawn !== null) {
+  //     console.log(selectedPawn);
 
-      for (let trait of selectedPawn.traits) {
-        console.log(trait);
-      }
+  //     for (let trait of selectedPawn.traits) {
+  //       console.log(trait);
+  //     }
       
-    }
-  }, [selectedPawn])
+  //   }
+  // }, [selectedPawn])
 
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch({ type: "menu/setStep", payload: 4 });
+    nextStep();
   };
 
   return (

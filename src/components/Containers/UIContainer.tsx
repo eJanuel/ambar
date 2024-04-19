@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../redux/types/Store.types";
-import { toggleDevMode } from '../../redux/reducers/UI.reducer';
+import { toggleDevMode } from '../../redux/reducers/app/UI.reducer';
+
 import DevUI from "../UI/Dev/Dev-UI.component";
+import { TimeBarUI } from "../UI/TimeBar.component";
+
+import "../../styles/UI.css";
 
 const UIContainer: React.FC = () => {
   const dispatch = useDispatch();
@@ -10,6 +14,7 @@ const UIContainer: React.FC = () => {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      // event.preventDefault();
       if (event.key.toLowerCase() === "d" && event.getModifierState("Control")) {
         if (devMode) {
           dispatch(toggleDevMode());
@@ -29,12 +34,9 @@ const UIContainer: React.FC = () => {
     };
   }, [devMode, dispatch]);
 
-  useEffect(() => {
-    console.log("devMode:", devMode ? "enabled" : "disabled");
-  }, [devMode]);
-
-  return <div>
+  return <div id="UI-container">
     {devMode && ( <DevUI /> )}
+    <TimeBarUI />
   </div>;
 };
 

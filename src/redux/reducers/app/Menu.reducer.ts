@@ -1,8 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Map } from "../../game/logic/types/Map.types";
-import { setStep, toggleMapPreview, setPreviewMap, setMapFormInputs, setNarratorFormInputs } from "../actions/Menu.actions";
-import { generateMap } from "../../game/logic/functions/generators/Map.generator";
-import { Pawn } from "../../game/logic/types/Pawn.types";
+import { Map } from "../../../game/logic/types/Map.types";
+import { setStep, toggleMapPreview, setMapFormInputs, setNarratorFormInputs } from "../../actions/Menu.actions";
+import { generateMap } from "../../../game/logic/functions/generators/Map.generator";
+import { generateRandomPawn } from '../../../game/logic/functions/generators/Pawn.generator';
+import { Pawn } from "../../../game/logic/types/Pawn.types";
+import { RootState } from '../../types/Store.types';
 
 interface MenuState {
     step: number;
@@ -28,6 +30,7 @@ interface MenuState {
         };
         pawnForm: {
             pawns: Pawn[];
+            newPawnId: number;
         };
     };
 };
@@ -56,6 +59,7 @@ const initialState: MenuState = {
         },
         pawnForm: {
             pawns: [],
+            newPawnId: 0,
         },
     },
 };
@@ -63,9 +67,18 @@ const initialState: MenuState = {
 export const generateNewMap = createAsyncThunk(
     'menu/generateNewMap',
     async ({ seed, name, size, height, biome, caves, structures }: { seed?: string, name: string, size: number, height: number, biome: string, caves: boolean, structures: boolean }) => {
-        console.log(seed, name, size, height, biome, caves, structures);
         const { grid, seed: generatedSeed } = generateMap(size, height, caves, seed);
         return { seed: generatedSeed, dimensions: { size, height }, cells: grid };
+    }
+);
+
+export const generateNewPawn = createAsyncThunk(
+    'pawn/generateNewPawn',
+    async (_, { getState }) => {
+        let pawnId = (getState() as RootState).menu.newGameForm.pawnForm.newPawnId;
+        const pawn = generateRandomPawn(`pawn${pawnId}`, { x: 0, y: 0, z: 0 });
+
+        return pawn;
     }
 );
 
@@ -80,12 +93,8 @@ const menuSlice = createSlice({
         builder.addCase(toggleMapPreview, (state) => {
             state.newGameForm.mapForm.isMapPreviewToggled = !state.newGameForm.mapForm.isMapPreviewToggled;
         });
-        builder.addCase(setPreviewMap, (state, action: PayloadAction<Map>) => {
-            state.newGameForm.mapForm.currentMap = action.payload;
-        });
         builder.addCase(setMapFormInputs, (state, action: PayloadAction<{ key: string, value: string | number | boolean }>) => {
             const { key, value } = action.payload;
-            console.log(key, value);
             if (key === 'size' || key === 'height') {
                 state.newGameForm.mapForm.inputs[key] = Number(value);
                 return;
@@ -107,6 +116,12 @@ const menuSlice = createSlice({
             if (key === 'type' || key === 'difficulty') {
                 state.newGameForm.narratorForm.inputs[key] = value;
             }
+        });
+        builder.addCase(generateNewPawn.fulfilled, (state, action) => {
+            state.newGameForm.pawnForm.pawns.push(action.payload);
+        });
+        builder.addCase(generateNewPawn.pending, (state) => {
+            state.newGameForm.pawnForm.newPawnId += 1;
         });
     },
 });

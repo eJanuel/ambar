@@ -2,7 +2,7 @@ import { Map } from "../../../../game/logic/types/Map.types";
 import PreviewScene from "../../../Three/Scenes/Preview.scene";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
-import { generateNewMap } from "../../../../redux/reducers/Menu.reducer";
+import { generateNewMap } from "../../../../redux/reducers/app/Menu.reducer";
 
 const SIZE_MIN = 16;
 const SIZE_MAX = 256;
@@ -19,7 +19,11 @@ enum BIOME {
   VALLEY = "valley",
 }
 
-const MapSettingsForm: React.FC = () => {
+type MapSettingsFormProps = {
+  nextStep: () => void;
+};
+
+const MapSettingsForm: React.FC<MapSettingsFormProps> = ({ nextStep }) => {
   const dispatch = useDispatch<AppDispatch>();
   const inputs: { [key: string]: string | number | boolean } = useSelector(
     (state: RootState) => state.menu.newGameForm.mapForm.inputs
@@ -47,12 +51,11 @@ const MapSettingsForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch({ type: "menu/setStep", payload: 2 });
+    nextStep();
   };
 
   const handlePreviewToggle = () => {
     if (map === null) {
-      console.log("map is null");
       handleGenerateMap();
     }
     dispatch({ type: "menu/toggleMapPreview" });

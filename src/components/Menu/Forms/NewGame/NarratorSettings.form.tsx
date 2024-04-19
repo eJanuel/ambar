@@ -35,7 +35,11 @@ const difficultyDescMap: { [key: string]: string } = {
     "Events will trigger more often and the game will be harder.",
 };
 
-const NarratorSettingsForm: React.FC = () => {
+type NarratorSettingsFormProps = {
+  nextStep: () => void;
+}
+
+const NarratorSettingsForm: React.FC<NarratorSettingsFormProps> = ({ nextStep }) => {
   const dispatch = useDispatch<AppDispatch>();
   const inputs: { [key: string]: string } = useSelector(
     (state: RootState) => state.menu.newGameForm.narratorForm.inputs
@@ -43,7 +47,7 @@ const NarratorSettingsForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    dispatch({ type: "menu/setStep", payload: 3 });
+    nextStep();
   };
 
   return (

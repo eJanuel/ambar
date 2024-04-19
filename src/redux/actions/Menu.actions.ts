@@ -1,42 +1,49 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Map } from '../../game/logic/types/Map.types';
+import { Pawn } from '../../game/logic/types/Pawn.types';
 
-
-interface mapInputPayloadString {
+interface MapInputPayloadString {
   key: 'seed' | 'name' | 'biome';
   value: string;
 }
 
-interface mapInputPayloadNumber {
+interface MapInputPayloadNumber {
   key: 'size' | 'height';
   value: number;
 }
 
-interface mapInputPayloadBoolean {
+interface MapInputPayloadBoolean {
   key: 'caves' | 'structures';
   value: boolean;
 }
 
-interface narratorInputPayload {
+interface NarratorInputPayload {
   key: 'type' | 'difficulty';
   value: string;
 
 }
 
-interface pawnInputPayload {
+interface PawnInputPayload {
   key: 'pawns';
   value: string;
 }
 
+export interface GamePayload {
+  map: Map;
+  pawns: Pawn[];
+  narrator: string;
+  difficulty: string;
+}
+
 export const setStep = createAction<number>('menu/setStep');
 export const toggleMapPreview = createAction('menu/toggleMapPreview');
-export const setPreviewMap = createAction<Map>('menu/setPreviewMap');
-export const setMapFormInputs = createAction('menu/setMapFormInputs', (payload: mapInputPayloadString | mapInputPayloadNumber | mapInputPayloadBoolean) => ({
+export const setMapFormInputs = createAction('menu/setMapFormInputs', (payload: MapInputPayloadString | MapInputPayloadNumber | MapInputPayloadBoolean) => ({
   payload,
 }));
-export const setNarratorFormInputs = createAction('menu/setNarratorFormInputs', (payload: narratorInputPayload) => ({
+export const setNarratorFormInputs = createAction('menu/setNarratorFormInputs', (payload: NarratorInputPayload) => ({
   payload,
 }));
-export const setPawnFormInputs = createAction('menu/setPawnFormInputs', (payload: pawnInputPayload) => ({
+export const setPawnFormInputs = createAction('menu/setPawnFormInputs', (payload: PawnInputPayload) => ({
   payload,
 }));
+export const createGame = createAction<GamePayload>('menu/createGame');
