@@ -1,10 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Map } from "../../../game/logic/types/Map.types";
-import { setStep, toggleMapPreview, setMapFormInputs, setNarratorFormInputs } from "../../actions/Menu.actions";
-import { generateMap } from "../../../game/logic/functions/generators/Map.generator";
-import { generateRandomPawn } from '../../../game/logic/functions/generators/Pawn.generator';
-import { Pawn } from "../../../game/logic/types/Pawn.types";
 import { RootState } from '../../types/Store.types';
+import { setStep, toggleMapPreview, setMapFormInputs, setNarratorFormInputs } from "../../actions/Menu.actions";
+
+import { generateMap } from "../../../game/functions/generators/Map.generator";
+import { generateRandomPawn } from '../../../game/functions/generators/Pawn.generator';
+
+import { Pawn } from "../../../game/types/Pawn.types";
+import { Map } from "../../../game/types/Map.types";
 
 interface MenuState {
     step: number;

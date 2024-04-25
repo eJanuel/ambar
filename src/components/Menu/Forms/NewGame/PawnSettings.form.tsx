@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 import { generateNewPawn } from "../../../../redux/reducers/app/Menu.reducer";
-import { Pawn } from "../../../../game/logic/types/Pawn.types";
+import { Pawn } from "../../../../game/types/Pawn.types";
 
 type PawnSettingsFormProps = {
   nextStep: () => void;

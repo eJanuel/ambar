@@ -1,6 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Map } from '../../game/logic/types/Map.types';
-import { Pawn } from '../../game/logic/types/Pawn.types';
 
 interface MapInputPayloadString {
   key: 'seed' | 'name' | 'biome';
@@ -28,13 +26,6 @@ interface PawnInputPayload {
   value: string;
 }
 
-export interface GamePayload {
-  map: Map;
-  pawns: Pawn[];
-  narrator: string;
-  difficulty: string;
-}
-
 export const setStep = createAction<number>('menu/setStep');
 export const toggleMapPreview = createAction('menu/toggleMapPreview');
 export const setMapFormInputs = createAction('menu/setMapFormInputs', (payload: MapInputPayloadString | MapInputPayloadNumber | MapInputPayloadBoolean) => ({
@@ -46,4 +37,3 @@ export const setNarratorFormInputs = createAction('menu/setNarratorFormInputs', 
 export const setPawnFormInputs = createAction('menu/setPawnFormInputs', (payload: PawnInputPayload) => ({
   payload,
 }));
-export const createGame = createAction<GamePayload>('menu/createGame');

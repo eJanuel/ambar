@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createGame, GamePayload } from '../../actions/Menu.actions';
 
-import { Map } from '../../../game/logic/types/Map.types';
+import { Map } from '../../../game/types/Map.types';
+import { populateMap } from '../../actions/Map.actions';
 
 interface MapState {
-  worldmap: Map;
+  gridMap: Map;
 }
 
 const initialState: MapState = {
-  worldmap: {
+  gridMap: {
     seed: '',
     dimensions: {
       size: 0,
@@ -24,12 +24,12 @@ const mapSlice = createSlice({
   reducers: {
     updateMap: (state, action: PayloadAction<Map>) => {
       const { seed, dimensions, cells } = action.payload;
-      state.worldmap = { seed, dimensions, cells };
+      state.gridMap = { seed, dimensions, cells };
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createGame, (state, action: PayloadAction<GamePayload>) => {
-      state.worldmap = action.payload.map;
+    builder.addCase(populateMap, (state, action: PayloadAction<Map>) => {
+      state.gridMap = action.payload;
     });
   }
 });

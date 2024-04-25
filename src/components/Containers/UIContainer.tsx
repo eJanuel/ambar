@@ -1,43 +1,28 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../../redux/types/Store.types";
-import { toggleDevMode } from '../../redux/reducers/app/UI.reducer';
+import React from "react";
 
-import DevUI from "../UI/Dev/Dev-UI.component";
-import { TimeBarUI } from "../UI/TimeBar.component";
+import DraggableWrapper from "../Game/UI/DraggableWrapper";
+import { TimeBarUI } from "../Game/UI/TimeBar.component";
+import { PawnBarUI } from "../Game/UI/PawnBar.component";
 
 import "../../styles/UI.css";
+import { MenuButtonUI } from "../Game/UI/MenuButton";
 
 const UIContainer: React.FC = () => {
-  const dispatch = useDispatch();
-  const devMode = useSelector((state: RootState) => state.ui.devMode);
+  const timeBarOptions = ["Option 1", "Option 2", "Option 3"];
+  const pawnBarOptions = ["Option 4", "Option 5", "Option 6"];
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // event.preventDefault();
-      if (event.key.toLowerCase() === "d" && event.getModifierState("Control")) {
-        if (devMode) {
-          dispatch(toggleDevMode());
-        } else {
-          const input = prompt("dev password:");
-          if (input && input.toLowerCase() === "dev123") {
-            dispatch(toggleDevMode());
-          }
-        }
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [devMode, dispatch]);
-
-  return <div id="UI-container">
-    {devMode && ( <DevUI /> )}
-    <TimeBarUI />
-  </div>;
+  return (
+    <div id="UI-container">
+      <DraggableWrapper UIidentifier={1} options={timeBarOptions}>
+        <TimeBarUI />
+      </DraggableWrapper>
+      <DraggableWrapper UIidentifier={2} options={pawnBarOptions}>
+        <PawnBarUI />
+      </DraggableWrapper>
+      
+        <MenuButtonUI />
+    </div>
+  );
 };
 
 export default UIContainer;

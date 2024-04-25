@@ -1,20 +1,24 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createGame, GamePayload } from '../../actions/Menu.actions';
-import { startGame } from '../../actions/Game.action';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { GamePopulatePayload, populateGame, startGame } from '../../actions/Game.actions';
 interface GameState {
-    settings: {
-      difficulty: string;
-      narrator: string;
-    }
-    isGameRunning: boolean;
+  gameID: number | null;
+  gameName: string;
+  gameSettings: {
+    difficulty: string;
+    narrator: string;
+  }
+  isGameRunning: boolean;
 }
 
 const initialState: GameState = {
-    settings: {
-      difficulty: '',
-      narrator: ''
-    },
-    isGameRunning: false,
+  gameID: null,
+  gameName: '',
+  gameSettings: {
+    difficulty: '',
+    narrator: ''
+  },
+  isGameRunning: false,
 };
 
 const gameSlice = createSlice({
@@ -22,13 +26,15 @@ const gameSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(createGame, (state, action: PayloadAction<GamePayload>) => {
-      state.settings.difficulty = action.payload.difficulty;
-      state.settings.narrator = action.payload.narrator;
+    builder.addCase(populateGame, (state, action: PayloadAction<GamePopulatePayload>) => {
+      state.gameID = action.payload.id;
+      state.gameName = action.payload.name;
+      state.gameSettings.difficulty = action.payload.settings.difficulty;
+      state.gameSettings.narrator = action.payload.settings.narrator;
     });
     builder.addCase(startGame, (state) => {
       state.isGameRunning = true;
-    })
+    });
   },
 });
 

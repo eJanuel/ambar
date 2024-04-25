@@ -1,5 +1,5 @@
-import { Map } from "../../../../game/logic/types/Map.types";
-import PreviewScene from "../../../Three/Scenes/Preview.scene";
+import { Map } from "../../../../game/types/Map.types";
+import PreviewScene from "../../../Game/Three/Scenes/Preview.scene";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 import { generateNewMap } from "../../../../redux/reducers/app/Menu.reducer";

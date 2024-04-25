@@ -1,14 +1,11 @@
 import React, { FC } from "react";
 
-import NewGameForm from "./NewGame.component";
+import NewGameMenu from "./NewGameMenu.component";
 import { NewGameIcon } from "../Icons/NewGame.icon";
 import { LoadGameIcon } from "../Icons/LoadGame.icon";
 import { SettingsIcon } from "../Icons/Settings.icon";
-// import ambarLogo from "/src/logo.svg"
 import { AmbarLogoIcon } from "../Icons/AmbarLogo.icon";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/types/Store.types";
-import { GamePayload, createGame } from "../../redux/actions/Menu.actions";
+import LoadGameMenu from "./LoadGameMenu.component";
 
 interface MenuButtonProps {
   buttonText: string;
@@ -36,19 +33,8 @@ const MenuButton: React.FC<MenuButtonProps> = ({
   );
 };
 
-export const MainMenu: React.FC = () => {
+const MainMenu: React.FC = () => {
   const [step, setStep] = React.useState(0);
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleLoadGame = () => {
-    const savedGameState = localStorage.getItem('savedGameState');
-
-    if (savedGameState) {
-      dispatch(createGame(JSON.parse(savedGameState) as GamePayload));
-    } else {
-      console.log('No saved game found');
-    }
-  };
 
   return (
     <>
@@ -62,7 +48,7 @@ export const MainMenu: React.FC = () => {
           <MenuButton
             buttonText="Load Game"
             Icon={LoadGameIcon}
-            onClick={() => handleLoadGame()}
+            onClick={() => setStep(2)}
           />
           <MenuButton
             buttonText="Settings"
@@ -72,11 +58,15 @@ export const MainMenu: React.FC = () => {
         </div>
       )}
 
-      {step === 1 && <NewGameForm returnToMenu={() => setStep(0)} />}
+      {step === 1 && <NewGameMenu returnToMenu={() => setStep(0)} />}
 
-      {step === 2 && <div>Load Game</div>}
+      {step === 2 && <LoadGameMenu returnToMenu={() => setStep(0)} />}
+
+      {step === 3 && <div>Settings</div>}
 
       <AmbarLogoIcon hover={false} />
     </>
   );
 };
+
+export default MainMenu;

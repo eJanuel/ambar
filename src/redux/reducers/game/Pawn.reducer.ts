@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Pawn } from '../../../game/logic/types/Pawn.types';
-import { createGame, GamePayload } from '../../actions/Menu.actions';
+import { Pawn } from '../../../game/types/Pawn.types';
+import { populatePawns } from '../../actions/Pawn.actions';
 
 interface PawnState {
   pawns: Pawn[];
@@ -23,9 +23,9 @@ const pawnSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createGame, (state, action: PayloadAction<GamePayload>) => {
-      state.pawns = action.payload.pawns;
-    })
+    builder.addCase(populatePawns, (state, action: PayloadAction<Pawn[]>) => {
+      state.pawns = action.payload;
+    });
   }
 });
 

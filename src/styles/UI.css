@@ -1,4 +1,16 @@
 #UI-container {
     position: absolute;
     z-index: 1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.UI--item {
+    pointer-events: auto;
+    background-color: #40629386;
+    color: #fff;
+    max-width: fit-content;
+    max-height: fit-content;
+    padding: 8px;
 }
