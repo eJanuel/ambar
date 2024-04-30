@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
+import {
+  NewGameFormSteps,
+  setGameFormStep,
+} from "../../../../redux/reducers/app/Menu.reducer";
 
 enum NARRATOR {
   MERCHANT = "merchant",
@@ -35,24 +39,21 @@ const difficultyDescMap: { [key: string]: string } = {
     "Events will trigger more often and the game will be harder.",
 };
 
-type NarratorSettingsFormProps = {
-  nextStep: () => void;
-}
-
-const NarratorSettingsForm: React.FC<NarratorSettingsFormProps> = ({ nextStep }) => {
+const NarratorSettingsForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const inputs: { [key: string]: string } = useSelector(
     (state: RootState) => state.menu.newGameForm.narratorForm.inputs
   );
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    nextStep();
-  };
-
   return (
     <>
-      <form className="new-game-form__form" onSubmit={handleSubmit}>
+      <form
+        className="new-game-form__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(setGameFormStep(NewGameFormSteps.PAWN));
+        }}
+      >
         <div className="new-game-form__input-group">
           <div className="new-game-form__input-group-item">
             <label className="new-game-form__label">Narrator Type</label>

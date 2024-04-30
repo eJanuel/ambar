@@ -1,32 +1,25 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { ReturnArrowIcon } from "../Icons/ReturnArrow.icon";
-import { AppDispatch, RootState } from "../../redux/types/Store.types";
+import { AppDispatch } from "../../redux/types/Store.types";
 import { GameSaveFolder } from "../../game/types/Game.types";
+import {
+  MenuDisplayablePages,
+  setDisplayedPage,
+} from "../../redux/reducers/app/Menu.reducer";
+import { deleteSave, loadSave } from "../../redux/actions/Game.actions";
 
-interface LoadGameProps {
-  returnToMenu: () => void;
-}
-
-const LoadGameMenu: React.FC<LoadGameProps> = ({ returnToMenu }) => {
+const LoadGameMenu: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const step: number = useSelector((state: RootState) => state.menu.step);
 
   const localSavedGames = localStorage.getItem("savedGames");
   const savedGames: GameSaveFolder[] = localSavedGames
     ? JSON.parse(localSavedGames)
     : [];
 
-  const setStep = (newStep: number) => {
-    if (newStep === 0) {
-      returnToMenu();
-    } else {
-      dispatch({ type: "menu/setStep", payload: newStep });
-    }
-  };
   return (
     <>
       <div
-        onClick={() => setStep(step - 1)}
+        onClick={() => dispatch(setDisplayedPage(MenuDisplayablePages.MENU))}
         className="new-game-form__return-button"
       >
         <ReturnArrowIcon />
@@ -55,21 +48,16 @@ const LoadGameMenu: React.FC<LoadGameProps> = ({ returnToMenu }) => {
                   </div>
                   <button
                     onClick={() =>
-                      dispatch({
-                        type: "game/loadGame",
-                        payload: { id: game.id, name: game.name, save },
-                      })
+                      dispatch(loadSave({ id: game.id, name: game.name, save }))
                     }
                   >
                     Load
                   </button>
                   <button
-                    onClick={() =>
-                      dispatch({
-                        type: "game/deleteSave",
-                        payload: { id: game.id, index },
-                      })
-                    }
+                    onClick={() => {
+                      console.log(game.id, index);
+                      dispatch(deleteSave({ id: game.id, index }));
+                    }}
                   >
                     Delete
                   </button>

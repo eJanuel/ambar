@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/types/Store.types";
+import { createSave } from "../../../redux/actions/Game.actions";
 
 export const MenuButtonUI: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,7 +21,7 @@ export const MenuButtonUI: React.FC = () => {
   };
 
   const handleSaveGame = () => {
-    dispatch({type: "game/saveGame"});
+    dispatch(createSave());
   };
 
   const handleClose = () => {

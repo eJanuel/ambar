@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
-import { generateNewPawn } from "../../../../redux/reducers/app/Menu.reducer";
+import {
+  NewGameFormSteps,
+  generateNewPawn,
+  setGameFormStep,
+} from "../../../../redux/reducers/app/Menu.reducer";
 import { Pawn } from "../../../../game/types/Pawn.types";
 
-type PawnSettingsFormProps = {
-  nextStep: () => void;
-}
-
-const PawnSettingsForm: React.FC<PawnSettingsFormProps> = ({ nextStep }) => {
-  const pawns: Pawn[] = useSelector((state: RootState) => state.menu.newGameForm.pawnForm.pawns);
+const PawnSettingsForm: React.FC = () => {
+  const pawns: Pawn[] = useSelector(
+    (state: RootState) => state.menu.newGameForm.pawnForm.pawns
+  );
   const dispatch = useDispatch<AppDispatch>();
   const [selectedPawn, setSelectedPawn] = useState<Pawn | null>(null);
 
@@ -25,25 +27,14 @@ const PawnSettingsForm: React.FC<PawnSettingsFormProps> = ({ nextStep }) => {
     }
   }, [pawns]);
 
-  // useEffect(() => {
-  //   if (selectedPawn !== null) {
-  //     console.log(selectedPawn);
-
-  //     for (let trait of selectedPawn.traits) {
-  //       console.log(trait);
-  //     }
-      
-  //   }
-  // }, [selectedPawn])
-
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    nextStep();
-  };
-
   return (
-    <form className="new-game-form__form" onSubmit={handleSubmit}>
+    <form
+      className="new-game-form__form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        dispatch(setGameFormStep(NewGameFormSteps.GEAR));
+      }}
+    >
       <div className="new-game-form__pawns">
         {selectedPawn != null ? (
           <>
@@ -92,19 +83,21 @@ const PawnSettingsForm: React.FC<PawnSettingsFormProps> = ({ nextStep }) => {
                     Skills
                   </h5>
                   <ul className="new-game-form__pawn-details-list">
-                    {Object.entries(selectedPawn.skills).map(([key, skill], index) => (
-                      <li
-                        key={index}
-                        className="new-game-form__pawn-details-list-item"
-                      >
-                        <span className="new-game-form__pawn-details-list-item--label">
-                          {key}:
-                        </span>
-                        <span className="new-game-form__pawn-details-list-item--value">
-                          {skill.level}
-                        </span>
-                      </li>
-                    ))}
+                    {Object.entries(selectedPawn.skills).map(
+                      ([key, skill], index) => (
+                        <li
+                          key={index}
+                          className="new-game-form__pawn-details-list-item"
+                        >
+                          <span className="new-game-form__pawn-details-list-item--label">
+                            {key}:
+                          </span>
+                          <span className="new-game-form__pawn-details-list-item--value">
+                            {skill.level}
+                          </span>
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
 
@@ -133,11 +126,7 @@ const PawnSettingsForm: React.FC<PawnSettingsFormProps> = ({ nextStep }) => {
 
       <div className="new-game-form__input-group">
         <div className="new-game-form__input-group-item">
-          <input
-            className="new-game-form__submit"
-            type="submit"
-            value="Next"
-          />
+          <input className="new-game-form__submit" type="submit" value="Next" />
         </div>
       </div>
     </form>

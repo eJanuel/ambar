@@ -16,14 +16,20 @@ export interface GameCreatePayload {
     settings: GameSettings;
   }
   
-  export interface GameLoadPayload {
+  export interface SavePayload {
     id: number;
     name: string;
     save: GameSave;
   }
 
+  export interface SaveIdentifierPayload {
+    id: number;
+    index: number;
+  }
+
 export const populateGame = createAction<GamePopulatePayload>('game/populateGame');
 export const startGame = createAction('game/startGame');
 export const createGame = createAction<GameCreatePayload>('game/createGame');
-export const loadGame = createAction<GameLoadPayload>('game/loadGame');
-export const saveGame = createAction('game/saveGame');
+export const loadSave = createAction<SavePayload>('game/loadSave');
+export const createSave = createAction('game/createSave');
+export const deleteSave = createAction<SaveIdentifierPayload>('game/deleteSave');

@@ -2,7 +2,11 @@ import { Map } from "../../../../game/types/Map.types";
 import PreviewScene from "../../../Game/Three/Scenes/Preview.scene";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
-import { generateNewMap } from "../../../../redux/reducers/app/Menu.reducer";
+import {
+  NewGameFormSteps,
+  generateNewMap,
+  setGameFormStep,
+} from "../../../../redux/reducers/app/Menu.reducer";
 
 const SIZE_MIN = 16;
 const SIZE_MAX = 256;
@@ -19,11 +23,7 @@ enum BIOME {
   VALLEY = "valley",
 }
 
-type MapSettingsFormProps = {
-  nextStep: () => void;
-};
-
-const MapSettingsForm: React.FC<MapSettingsFormProps> = ({ nextStep }) => {
+const MapSettingsForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const inputs: { [key: string]: string | number | boolean } = useSelector(
     (state: RootState) => state.menu.newGameForm.mapForm.inputs
@@ -38,20 +38,14 @@ const MapSettingsForm: React.FC<MapSettingsFormProps> = ({ nextStep }) => {
   const handleGenerateMap = () => {
     const mapSettings = {
       seed: inputs.seed as string,
-      name: inputs.name as string,
       size: inputs.size as number,
       height: inputs.height as number,
+      hasCaves: inputs.caves as boolean,
+      hasStructures: inputs.structures as boolean,
       biome: inputs.biome as string,
-      caves: inputs.caves as boolean,
-      structures: inputs.structures as boolean,
     };
 
     dispatch(generateNewMap(mapSettings));
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    nextStep();
   };
 
   const handlePreviewToggle = () => {
@@ -68,15 +62,18 @@ const MapSettingsForm: React.FC<MapSettingsFormProps> = ({ nextStep }) => {
           <div className="new-game-form__preview-content">
             <PreviewScene map={map} />
           </div>
-          <button
-            onClick={handleGenerateMap}
-            className="new-game-form__button"
-          >
+          <button onClick={handleGenerateMap} className="new-game-form__button">
             Generate
           </button>
         </div>
       )}
-      <form className="new-game-form__form" onSubmit={handleSubmit}>
+      <form
+        className="new-game-form__form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          dispatch(setGameFormStep(NewGameFormSteps.NARRATOR));
+        }}
+      >
         <div className="new-game-form__input-group">
           <div className="new-game-form__input-group-item">
             <label className="new-game-form__label">Seed</label>
@@ -217,11 +214,7 @@ const MapSettingsForm: React.FC<MapSettingsFormProps> = ({ nextStep }) => {
               onChange={handlePreviewToggle}
             />
           </div>
-          <input
-            className="new-game-form__submit"
-            type="submit"
-            value="Next"
-          />
+          <input className="new-game-form__submit" type="submit" value="Next" />
         </div>
       </form>
     </>

@@ -6,7 +6,7 @@ import { populatePawns } from '../actions/Pawn.actions';
 import { populateGame, startGame } from '../actions/Game.actions';
 import { GameSaveFolder } from '../../game/types/Game.types';
 
-export const CreateGameMiddleware: Middleware<{}, RootState> = storeAPI => next => (action: any) => {
+const CreateGameMiddleware: Middleware<{}, RootState> = storeAPI => next => (action: any) => {
     let result = next(action);
 
     if (action.type === createGame.type) {
@@ -52,3 +52,5 @@ export const CreateGameMiddleware: Middleware<{}, RootState> = storeAPI => next 
 
     return result;
 };
+
+export default CreateGameMiddleware;

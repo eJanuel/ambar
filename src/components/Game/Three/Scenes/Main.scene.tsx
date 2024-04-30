@@ -4,11 +4,12 @@ import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 import { setClock } from "../../../../redux/reducers/game/Clock.reducer";
 
 import { Canvas } from "@react-three/fiber";
+import { CameraControls } from "@react-three/drei";
+
 import { MapRender } from "../Renders/Map.render";
 import { PawnsRender } from "../Renders/Pawn.render";
 import { SkyRender } from "../Renders/Sky.render";
 
-import { CameraControls, Sphere } from "@react-three/drei";
 
 const MainScene: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

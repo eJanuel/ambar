@@ -66,7 +66,7 @@ const generateBaseLayers = (size: number, height: number): MapCell[][][] => {
 };
 
 
-export const generateMap = (size: number, height: number, hasCave: boolean, seed?: string): { grid: MapCell[][][], seed: string } => {
+export const generateMap = (size: number, height: number, hasCave: boolean, hasStructures: boolean, biome: string, seed?: string): { grid: MapCell[][][], seed: string } => {
   const rng = seed ? seedrandom(seed) : seedrandom();
   const gridMatrix: MapCell[][][] = generateBaseLayers(size, height);
 

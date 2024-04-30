@@ -13,23 +13,23 @@ const App: React.FC = () => {
   );
 
   // AUTOLOAD
-  const localSavedGames = localStorage.getItem("savedGames");
-  const savedGames: GameSaveFolder[] = localSavedGames
-    ? JSON.parse(localSavedGames)
-    : [];
+  // const localSavedGames = localStorage.getItem("savedGames");
+  // const savedGames: GameSaveFolder[] = localSavedGames
+  //   ? JSON.parse(localSavedGames)
+  //   : [];
 
-  useEffect(() => {
-    if (savedGames.length > 0) {
-      dispatch({
-        type: "game/loadGame",
-        payload: {
-          id: savedGames[0].id,
-          name: savedGames[0].name,
-          save: savedGames[0].saves[0],
-        },
-      });
-    }
-  }, [savedGames]);
+  // useEffect(() => {
+  //   if (savedGames.length > 0) {
+  //     dispatch({
+  //       type: "game/loadGame",
+  //       payload: {
+  //         id: savedGames[0].id,
+  //         name: savedGames[0].name,
+  //         save: savedGames[0].saves[0],
+  //       },
+  //     });
+  //   }
+  // }, [savedGames]);
 
   return (
     <>

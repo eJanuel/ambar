@@ -1,12 +1,12 @@
 import { Middleware } from 'redux';
 import { RootState } from '../types/Store.types';
-import { saveGame } from '../actions/Game.actions';
+import { createSave } from '../actions/Game.actions';
 import { GameSave } from '../../game/types/Game.types';
 
-export const SaveGameMiddleware: Middleware<{}, RootState> = storeAPI => next => (action: any) => {
+const CreateSaveMiddleware: Middleware<{}, RootState> = storeAPI => next => (action: any) => {
   let result = next(action);
 
-  if (action.type === saveGame.type) {
+  if (action.type === createSave.type) {
     const state = storeAPI.getState();
 
     const savedGame: GameSave = {
@@ -36,3 +36,5 @@ export const SaveGameMiddleware: Middleware<{}, RootState> = storeAPI => next =>
 
   return result;
 };
+
+export default CreateSaveMiddleware;

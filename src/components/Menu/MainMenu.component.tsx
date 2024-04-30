@@ -6,6 +6,9 @@ import { LoadGameIcon } from "../Icons/LoadGame.icon";
 import { SettingsIcon } from "../Icons/Settings.icon";
 import { AmbarLogoIcon } from "../Icons/AmbarLogo.icon";
 import LoadGameMenu from "./LoadGameMenu.component";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/types/Store.types";
+import { MenuDisplayablePages, setDisplayedPage } from "../../redux/reducers/app/Menu.reducer";
 
 interface MenuButtonProps {
   buttonText: string;
@@ -34,35 +37,39 @@ const MenuButton: React.FC<MenuButtonProps> = ({
 };
 
 const MainMenu: React.FC = () => {
-  const [step, setStep] = React.useState(0);
+  const dispatch = useDispatch<AppDispatch>();
+  const { displayedPage }: { displayedPage: MenuDisplayablePages } =
+    useSelector((state: RootState) => state.menu);
+
+
 
   return (
     <>
-      {step === 0 && (
+      {displayedPage === MenuDisplayablePages.MENU && (
         <div className="menu-container__options">
           <MenuButton
             buttonText="New Game"
             Icon={NewGameIcon}
-            onClick={() => setStep(1)}
+            onClick={() => dispatch(setDisplayedPage(MenuDisplayablePages.NEW_GAME))}
           />
           <MenuButton
             buttonText="Load Game"
             Icon={LoadGameIcon}
-            onClick={() => setStep(2)}
+            onClick={() => dispatch(setDisplayedPage(MenuDisplayablePages.LOAD_GAME))}
           />
           <MenuButton
             buttonText="Settings"
             Icon={SettingsIcon}
-            onClick={() => setStep(3)}
+            onClick={() => dispatch(setDisplayedPage(MenuDisplayablePages.SETTINGS))}
           />
         </div>
       )}
 
-      {step === 1 && <NewGameMenu returnToMenu={() => setStep(0)} />}
+      {displayedPage === MenuDisplayablePages.NEW_GAME && <NewGameMenu />}
 
-      {step === 2 && <LoadGameMenu returnToMenu={() => setStep(0)} />}
+      {displayedPage === MenuDisplayablePages.LOAD_GAME && <LoadGameMenu />}
 
-      {step === 3 && <div>Settings</div>}
+      {displayedPage === MenuDisplayablePages.SETTINGS && <div>Settings</div>}
 
       <AmbarLogoIcon hover={false} />
     </>

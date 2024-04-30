@@ -1,34 +1,29 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/types/Store.types";
-import { GameCreatePayload } from "../../redux/actions/Game.actions";
+import {
+  GameCreatePayload,
+  createGame,
+} from "../../redux/actions/Game.actions";
 
-import { ReturnArrowIcon } from "../Icons/ReturnArrow.icon";
 import MapSettingsForm from "./Forms/NewGame/MapSettings.form";
 import NarratorSettingsForm from "./Forms/NewGame/NarratorSettings.form";
 import PawnSettingsForm from "./Forms/NewGame/PawnSettings.form";
 import GearSettingsForm from "./Forms/NewGame/GearSettings.form";
+import { ReturnArrowIcon } from "../Icons/ReturnArrow.icon";
+import {
+  MenuDisplayablePages,
+  NewGameFormSteps,
+  setDisplayedPage,
+  setGameFormStep,
+} from "../../redux/reducers/app/Menu.reducer";
 
-
-
-interface NewGameMenuProps {
-  returnToMenu: () => void;
-}
-
-const NewGameMenu: React.FC<NewGameMenuProps> = ({ returnToMenu }) => {
+const NewGameMenu: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const step: number = useSelector((state: RootState) => state.menu.step);
+  const { currentStep }: { currentStep: NewGameFormSteps } = useSelector(
+    (state: RootState) => state.menu.newGameForm
+  );
   const formInputs = useSelector((state: RootState) => state.menu.newGameForm);
-
-  const setStep = (newStep: number) => {
-    if (newStep === 0) {
-      returnToMenu();
-    } else if (newStep === 5) {
-      handleCreateGame();
-    } else {
-      dispatch({ type: "menu/setStep", payload: newStep });
-    }
-  };
 
   const handleCreateGame = () => {
     if (
@@ -42,19 +37,19 @@ const NewGameMenu: React.FC<NewGameMenuProps> = ({ returnToMenu }) => {
         settings: {
           narrator: formInputs.narratorForm.inputs.type,
           difficulty: formInputs.narratorForm.inputs.difficulty,
-        }
+        },
       };
 
-      dispatch({ type: "game/createGame", payload: gameSettings });
+      dispatch(createGame(gameSettings));
     } else {
-      console.log('missing pawns or map');
+      console.log("missing pawns or map");
     }
   };
 
   return (
     <>
       <div
-        onClick={() => setStep(step - 1)}
+        onClick={() => dispatch(setDisplayedPage(MenuDisplayablePages.MENU))}
         className="new-game-form__return-button"
       >
         <ReturnArrowIcon />
@@ -66,35 +61,69 @@ const NewGameMenu: React.FC<NewGameMenuProps> = ({ returnToMenu }) => {
         <div className="new-game-form__container">
           <div className="new-game-form__arial-line">
             <span
-              onClick={() => setStep(1)}
-              className={step === 1 ? "active" : ""}
+              onClick={() => dispatch(setGameFormStep(NewGameFormSteps.MAP))}
+              className={currentStep === NewGameFormSteps.MAP ? "active" : ""}
             >
               Map Settings
             </span>
             <span
-              onClick={() => setStep(2)}
-              className={step === 2 ? "active" : ""}
+              onClick={() =>
+                dispatch(setGameFormStep(NewGameFormSteps.NARRATOR))
+              }
+              className={
+                currentStep === NewGameFormSteps.NARRATOR ? "active" : ""
+              }
             >
               Narrator Settings
             </span>
             <span
-              onClick={() => setStep(3)}
-              className={step === 3 ? "active" : ""}
+              onClick={() => dispatch(setGameFormStep(NewGameFormSteps.PAWN))}
+              className={currentStep === NewGameFormSteps.PAWN ? "active" : ""}
             >
               Pawn Settings
             </span>
             <span
-              onClick={() => setStep(4)}
-              className={step === 4 ? "active" : ""}
+              onClick={() => dispatch(setGameFormStep(NewGameFormSteps.GEAR))}
+              className={currentStep === NewGameFormSteps.GEAR ? "active" : ""}
             >
               Gear Settings
             </span>
           </div>
 
-          {step === 1 && <MapSettingsForm nextStep={() => setStep(2)} />}
-          {step === 2 && <NarratorSettingsForm nextStep={() => setStep(3)} />}
-          {step === 3 && <PawnSettingsForm nextStep={() => setStep(4)} />}
-          {step === 4 && <GearSettingsForm nextStep={() => setStep(5)} />}
+          {currentStep === NewGameFormSteps.MAP && <MapSettingsForm />}
+          {currentStep === NewGameFormSteps.NARRATOR && (
+            <NarratorSettingsForm />
+          )}
+          {currentStep === NewGameFormSteps.PAWN && <PawnSettingsForm />}
+          {currentStep === NewGameFormSteps.GEAR && <GearSettingsForm />}
+          {currentStep === NewGameFormSteps.SUMMARY && (
+            <div className="new-game-form__summary">
+              <h3>Summary</h3>
+              <div className="new-game-form__summary-item">
+                <span>Map:</span>
+                <span>{formInputs.mapForm.inputs.name}</span>
+              </div>
+              <div className="new-game-form__summary-item">
+                <span>Narrator:</span>
+                <span>{formInputs.narratorForm.inputs.type}</span>
+              </div>
+              <div className="new-game-form__summary-item">
+                <span>Difficulty:</span>
+                <span>{formInputs.narratorForm.inputs.difficulty}</span>
+              </div>
+              <div className="new-game-form__summary-item">
+                <span>Pawns:</span>
+                <span>{formInputs.pawnForm.pawns.length}</span>
+              </div>
+              <button
+                className="new-game-form__submit"
+                onClick={handleCreateGame}
+              >
+                Create Game
+              </button>
+            </div>
+          )}
+          
         </div>
       </div>
     </>
