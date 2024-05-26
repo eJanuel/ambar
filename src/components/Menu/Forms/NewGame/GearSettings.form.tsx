@@ -22,7 +22,7 @@ const GearSettingsForm: React.FC = () => {
             <input
               className="new-game-form__submit"
               type="submit"
-              value="Create World"
+              value="Next"
             />
           </div>
         </div>

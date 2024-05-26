@@ -1,21 +1,26 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Canvas } from "@react-three/fiber";
+import { CameraControls, Stats } from "@react-three/drei";
+
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 import { setClock } from "../../../../redux/reducers/game/Clock.reducer";
 
-import { Canvas } from "@react-three/fiber";
-import { CameraControls } from "@react-three/drei";
+import { MapRender } from "../Renders/Containers/Map.render";
+import { PawnsRender } from "../Renders/Containers/Pawns.render";
+import { SkyRender } from "../Renders/Containers/Sky.render";
 
-import { MapRender } from "../Renders/Map.render";
-import { PawnsRender } from "../Renders/Pawn.render";
-import { SkyRender } from "../Renders/Sky.render";
+import { Map } from "../../../../types/Map.types";
 
 
 const MainScene: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+  const { gridMap }: { gridMap: Map } = useSelector(
+    (state: RootState) => state.map
+  );
   const { gameClock, speed, isPaused } = useSelector(
     (state: RootState) => state.clock
   );
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     let animationFrameId: number;
@@ -45,9 +50,10 @@ const MainScene: React.FC = () => {
     >
       <color attach="background" args={["black"]} />
       <CameraControls />
+      <Stats />
 
       <SkyRender />
-      <MapRender />
+      <MapRender map={gridMap} />
       <PawnsRender />
     </Canvas>
   );

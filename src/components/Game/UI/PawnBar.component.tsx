@@ -1,13 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
+
 import { RootState } from "../../../redux/types/Store.types";
-import { Pawn } from "../../../game/types/Pawn.types";
+
+import { Pawn } from "../../../types/Pawn.types";
+
 
 export const PawnBarUI: React.FC = () => {
-  const pawns: Pawn[] = useSelector((state: RootState) => state.pawn.pawns);
+  const { pawns }: { pawns: Pawn[] } = useSelector(
+    (state: RootState) => state.pawn
+  );
 
   return (
-    <div className="UI--pawnBar">
+    <div id="ui-pawnBar" className="UI--pawnBar">
       {pawns.map((pawn) => (
         <div key={pawn.entity.id} className="UI--pawnBar__item">
           <img

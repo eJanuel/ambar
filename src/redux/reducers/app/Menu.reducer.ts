@@ -1,12 +1,12 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from '../../types/Store.types';
-import { setStep, toggleMapPreview, setMapFormInputs, setNarratorFormInputs, generateNewMapAction } from "../../actions/Menu.actions";
+import { toggleMapPreview, setMapFormInputs, setNarratorFormInputs } from "../../actions/Menu.actions";
 
-import { generateMap } from "../../../game/functions/generators/Map.generator";
-import { generateRandomPawn } from '../../../game/functions/generators/Pawn.generator';
+import { generateMap } from "../../../functions/generators/Map.generator";
+import { generateRandomPawn } from '../../../functions/generators/Pawn.generator';
 
-import { Pawn } from "../../../game/types/Pawn.types";
-import { Map } from "../../../game/types/Map.types";
+import { Pawn } from "../../../types/Pawn.types";
+import { Map } from "../../../types/Map.types";
 
 export enum MenuDisplayablePages {
     MENU = 'menu',
@@ -23,7 +23,9 @@ export enum NewGameFormSteps {
     SUMMARY = 'summary',
 };
 
-interface MenuState {
+
+export interface MenuState {
+    refreshDB: boolean;
     displayedPage: MenuDisplayablePages;
     newGameForm: {
         currentStep: NewGameFormSteps;
@@ -35,9 +37,6 @@ interface MenuState {
                 name: string;
                 size: number;
                 height: number;
-                biome: string;
-                caves: boolean;
-                structures: boolean;
             };
         };
         narratorForm: {
@@ -54,6 +53,7 @@ interface MenuState {
 };
 
 const initialState: MenuState = {
+    refreshDB: true,
     displayedPage: MenuDisplayablePages.MENU,
     newGameForm: {
         currentStep: NewGameFormSteps.MAP,
@@ -63,11 +63,8 @@ const initialState: MenuState = {
             inputs: {
                 seed: '',
                 name: 'New World',
-                size: 16,
+                size: 64,
                 height: 16,
-                biome: 'plains',
-                caves: true,
-                structures: true,
             },
         },
         narratorForm: {
@@ -85,9 +82,9 @@ const initialState: MenuState = {
 
 export const generateNewMap = createAsyncThunk(
     'menu/generateNewMap',
-    async ({ seed, size, height, biome, hasCaves, hasStructures }: { seed?: string, size: number, height: number, biome: string, hasCaves: boolean, hasStructures: boolean }) => {
-        const { grid, seed: generatedSeed } = generateMap(size, height, hasCaves, hasStructures, biome , seed);
-        return { seed: generatedSeed, dimensions: { size, height }, cells: grid };
+    async ({ seed, size, height }: { seed?: string, size: number, height: number }) => {
+        const { map, generatedSeed } = generateMap(size, height, seed);
+        return { seed: generatedSeed, dimensions: { size, height }, cells: map };
     }
 );
 
@@ -110,7 +107,10 @@ const menuSlice = createSlice({
         },
         setGameFormStep: (state, action: PayloadAction<NewGameFormSteps>) => {
             state.newGameForm.currentStep = action.payload;
-        }
+        },
+        setRefreshDB: (state, action: PayloadAction<boolean>) => {
+            state.refreshDB = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(toggleMapPreview, (state) => {
@@ -122,11 +122,7 @@ const menuSlice = createSlice({
                 state.newGameForm.mapForm.inputs[key] = Number(value);
                 return;
             }
-            if (key === 'caves' || key === 'structures') {
-                state.newGameForm.mapForm.inputs[key] = Boolean(value);
-                return;
-            }
-            if (key === 'seed' || key === 'name' || key === 'biome') {
+            if (key === 'seed' || key === 'name') {
                 state.newGameForm.mapForm.inputs[key] = String(value);
                 return;
             }
@@ -149,6 +145,6 @@ const menuSlice = createSlice({
     },
 });
 
-export const { setDisplayedPage, setGameFormStep } = menuSlice.actions;
+export const { setDisplayedPage, setGameFormStep, setRefreshDB } = menuSlice.actions;
 
 export default menuSlice.reducer;

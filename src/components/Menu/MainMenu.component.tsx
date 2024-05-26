@@ -1,14 +1,16 @@
 import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { AppDispatch, RootState } from "../../redux/types/Store.types";
+import { MenuDisplayablePages, setDisplayedPage } from "../../redux/reducers/app/Menu.reducer";
 
 import NewGameMenu from "./NewGameMenu.component";
+import LoadGameMenu from "./LoadGameMenu.component";
 import { NewGameIcon } from "../Icons/NewGame.icon";
 import { LoadGameIcon } from "../Icons/LoadGame.icon";
 import { SettingsIcon } from "../Icons/Settings.icon";
 import { AmbarLogoIcon } from "../Icons/AmbarLogo.icon";
-import LoadGameMenu from "./LoadGameMenu.component";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/types/Store.types";
-import { MenuDisplayablePages, setDisplayedPage } from "../../redux/reducers/app/Menu.reducer";
+
 
 interface MenuButtonProps {
   buttonText: string;
