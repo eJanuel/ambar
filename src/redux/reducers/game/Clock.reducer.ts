@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { ClockPopulatePayload, populateClock } from '../../actions/Clock.actions';
 
-interface ClockState {
+export interface ClockState {
   speed: 1 | 2 | 3 | 30 | 300;
   isPaused: boolean;
   gameClock: number;

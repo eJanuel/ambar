@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Pawn } from '../../../game/types/Pawn.types';
+import { Pawn } from '../../../types/Pawn.types';
 import { movePawn, populatePawns } from '../../actions/Pawn.actions';
 
-interface PawnState {
+export interface PawnState {
   pawns: Pawn[];
 }
 

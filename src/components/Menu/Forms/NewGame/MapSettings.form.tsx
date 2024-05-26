@@ -1,6 +1,6 @@
-import { Map } from "../../../../game/types/Map.types";
-import PreviewScene from "../../../Game/Three/Scenes/Preview.scene";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 import {
   NewGameFormSteps,
@@ -8,31 +8,28 @@ import {
   setGameFormStep,
 } from "../../../../redux/reducers/app/Menu.reducer";
 
+import PreviewScene from "../../../Game/Three/Scenes/Preview.scene";
+
+import { Map } from "../../../../types/Map.types";
+
 const SIZE_MIN = 16;
-const SIZE_MAX = 256;
+const SIZE_MAX = 128;
 const SIZE_STEP = 16;
 
 const HEIGHT_MIN = 16;
-const HEIGHT_MAX = 128;
+const HEIGHT_MAX = 64;
 const HEIGHT_STEP = 16;
 
-enum BIOME {
-  SWAMP = "swamp",
-  FOREST = "forest",
-  PLAINS = "plains",
-  VALLEY = "valley",
-}
 
 const MapSettingsForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const inputs: { [key: string]: string | number | boolean } = useSelector(
-    (state: RootState) => state.menu.newGameForm.mapForm.inputs
+  const { inputs }: { inputs: { [key: string]: string | number | boolean } } =
+    useSelector((state: RootState) => state.menu.newGameForm.mapForm);
+  const { currentMap }: { currentMap: Map | null } = useSelector(
+    (state: RootState) => state.menu.newGameForm.mapForm
   );
-  const map: Map | null = useSelector(
-    (state: RootState) => state.menu.newGameForm.mapForm.currentMap
-  );
-  const preview: boolean = useSelector(
-    (state: RootState) => state.menu.newGameForm.mapForm.isMapPreviewToggled
+  const { isMapPreviewToggled }: { isMapPreviewToggled: boolean } = useSelector(
+    (state: RootState) => state.menu.newGameForm.mapForm
   );
 
   const handleGenerateMap = () => {
@@ -40,27 +37,28 @@ const MapSettingsForm: React.FC = () => {
       seed: inputs.seed as string,
       size: inputs.size as number,
       height: inputs.height as number,
-      hasCaves: inputs.caves as boolean,
-      hasStructures: inputs.structures as boolean,
-      biome: inputs.biome as string,
     };
 
     dispatch(generateNewMap(mapSettings));
   };
 
   const handlePreviewToggle = () => {
-    if (map === null) {
+    if (currentMap === null) {
       handleGenerateMap();
     }
     dispatch({ type: "menu/toggleMapPreview" });
   };
 
+  useEffect(() => {
+    handleGenerateMap();
+  }, [inputs]);
+
   return (
     <>
-      {preview && (
+      {isMapPreviewToggled && (
         <div className="new-game-form__preview">
           <div className="new-game-form__preview-content">
-            <PreviewScene map={map} />
+            <PreviewScene />
           </div>
           <button onClick={handleGenerateMap} className="new-game-form__button">
             Generate
@@ -154,63 +152,11 @@ const MapSettingsForm: React.FC = () => {
 
         <div className="new-game-form__input-group">
           <div className="new-game-form__input-group-item">
-            <label className="new-game-form__label">Biome</label>
-            <select
-              className="new-game-form__select"
-              value={inputs.biome as string}
-              onChange={(e) =>
-                dispatch({
-                  type: "menu/setMapFormInputs",
-                  payload: { key: "biome", value: String(e.target.value) },
-                })
-              }
-            >
-              <option value={BIOME.SWAMP}>Swamp</option>
-              <option value={BIOME.FOREST}>Forest</option>
-              <option value={BIOME.PLAINS}>Plains</option>
-              <option value={BIOME.VALLEY}>Valley</option>
-            </select>
-          </div>
-          <div className="new-game-form__input-group-item">
-            <label className="new-game-form__label">Caves</label>
-            <input
-              className="new-game-form__checkbox"
-              type="checkbox"
-              checked={inputs.caves as boolean}
-              onChange={(e) =>
-                dispatch({
-                  type: "menu/setMapFormInputs",
-                  payload: { key: "caves", value: Boolean(e.target.checked) },
-                })
-              }
-            />
-          </div>
-          <div className="new-game-form__input-group-item">
-            <label className="new-game-form__label">Structures</label>
-            <input
-              className="new-game-form__checkbox"
-              type="checkbox"
-              checked={inputs.structures as boolean}
-              onChange={(e) =>
-                dispatch({
-                  type: "menu/setMapFormInputs",
-                  payload: {
-                    key: "structures",
-                    value: Boolean(e.target.checked),
-                  },
-                })
-              }
-            />
-          </div>
-        </div>
-
-        <div className="new-game-form__input-group">
-          <div className="new-game-form__input-group-item">
             <label className="new-game-form__label">Preview</label>
             <input
               className="new-game-form__checkbox"
               type="checkbox"
-              checked={preview}
+              checked={isMapPreviewToggled}
               onChange={handlePreviewToggle}
             />
           </div>

@@ -1,13 +1,28 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch, RootState } from "../../../redux/types/Store.types";
-import { setSpeed, togglePause } from "../../../redux/reducers/game/Clock.reducer";
+import {
+  setSpeed,
+  togglePause,
+} from "../../../redux/reducers/game/Clock.reducer";
+
 
 export const TimeBarUI: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { speed, isPaused, gameDays, gameHours, gameMinutes } = useSelector(
-    (state: RootState) => state.clock
-  );
+  const {
+    speed,
+    isPaused,
+    gameDays,
+    gameHours,
+    gameMinutes,
+  }: {
+    speed: number;
+    isPaused: boolean;
+    gameDays: number;
+    gameHours: number;
+    gameMinutes: number;
+  } = useSelector((state: RootState) => state.clock);
 
   const handleClick = (speed: 1 | 2 | 3 | 30 | 300) => {
     if (isPaused) {
@@ -18,7 +33,7 @@ export const TimeBarUI: React.FC = () => {
 
   return (
     <>
-      <div className="UI--speedControls">
+      <div id="ui-timeBar">
         <button
           className={`UI--speedControls__button ${
             isPaused

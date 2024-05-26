@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Map } from '../../../game/types/Map.types';
+import { Map } from '../../../types/Map.types';
 import { populateMap } from '../../actions/Map.actions';
+import OctreeMap from '../../../functions/classes/OctreeMap.class';
 
-interface MapState {
+export interface MapState {
   gridMap: Map;
 }
 
@@ -14,7 +15,7 @@ const initialState: MapState = {
       size: 0,
       height: 0,
     },
-    cells: [],
+    cells: new OctreeMap(0, 0),
   }
 };
 

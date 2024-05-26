@@ -11,9 +11,8 @@ const PreviewCamera: React.FC<PreviewCameraProps> = ({ size, height }) => {
   const { camera } = useThree();
 
   useEffect(() => {
-    camera.position.set(size * 64 + height * 64, height * 64, size * 64 + height * 64);
-    camera.lookAt(new THREE.Vector3(size * 64, height * 64, size * 64));
-    camera.far = 40000; // Increase the far clipping plane
+    camera.position.set(size * height, height * 128 / 2 + 256, size * height);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
     camera.updateProjectionMatrix();
   }, [size, height, camera]);
   return null;

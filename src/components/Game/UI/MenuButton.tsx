@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/types/Store.types";
 import { createSave } from "../../../redux/actions/Game.actions";
+import { SettingsIcon } from "../../Icons/UI/SettingsIcon";
 
 export const MenuButtonUI: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,7 +22,7 @@ export const MenuButtonUI: React.FC = () => {
   };
 
   const handleSaveGame = () => {
-    dispatch(createSave());
+    dispatch(createSave(""));
   };
 
   const handleClose = () => {
@@ -32,7 +33,7 @@ export const MenuButtonUI: React.FC = () => {
   return (
     <div className="UI--item">
       <div id="menu-button" onClick={handleMenu}>
-        MENU
+        <SettingsIcon />
       </div>
       {menuOpen && (
         <div id="menu">

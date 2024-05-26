@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 import {
   NewGameFormSteps,
   generateNewPawn,
   setGameFormStep,
 } from "../../../../redux/reducers/app/Menu.reducer";
-import { Pawn } from "../../../../game/types/Pawn.types";
+
+import { Pawn } from "../../../../types/Pawn.types";
 
 const PawnSettingsForm: React.FC = () => {
-  const pawns: Pawn[] = useSelector(
-    (state: RootState) => state.menu.newGameForm.pawnForm.pawns
+  const { pawns }: { pawns: Pawn[] } = useSelector(
+    (state: RootState) => state.menu.newGameForm.pawnForm
   );
   const dispatch = useDispatch<AppDispatch>();
   const [selectedPawn, setSelectedPawn] = useState<Pawn | null>(null);

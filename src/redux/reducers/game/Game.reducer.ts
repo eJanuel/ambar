@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { GamePopulatePayload, populateGame, startGame } from '../../actions/Game.actions';
-interface GameState {
-  gameID: number | null;
+export interface GameState {
+  gameID: string | null;
   gameName: string;
   gameSettings: {
     difficulty: string;

@@ -37,4 +37,3 @@ export const setNarratorFormInputs = createAction('menu/setNarratorFormInputs', 
 export const setPawnFormInputs = createAction('menu/setPawnFormInputs', (payload: PawnInputPayload) => ({
   payload,
 }));
-export const generateNewMapAction = createAction('menu/generateNewMap');

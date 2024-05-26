@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppDispatch, RootState } from "../../../../redux/types/Store.types";
 import {
   NewGameFormSteps,
@@ -41,8 +42,8 @@ const difficultyDescMap: { [key: string]: string } = {
 
 const NarratorSettingsForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const inputs: { [key: string]: string } = useSelector(
-    (state: RootState) => state.menu.newGameForm.narratorForm.inputs
+  const { inputs }: { inputs: { [key: string]: string } } = useSelector(
+    (state: RootState) => state.menu.newGameForm.narratorForm
   );
 
   return (

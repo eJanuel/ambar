@@ -83,7 +83,8 @@
     }
 }
 
-.new-game-form__return-button {
+.new-game-form__return-button,
+.load-game-menu__return-button {
     position: absolute;
     top: 32px;
     left: 32px;
@@ -98,7 +99,8 @@
     grid-template-rows: 256px 1fr 64px;
 }
 
-.new-game-form__title, .new-game-form__section-title {
+.new-game-form__title,
+.new-game-form__section-title {
     justify-self: center;
     align-self: center;
 }
@@ -135,7 +137,7 @@
     padding: 0 10px;
     cursor: pointer;
     transition: .2s;
-} 
+}
 
 .new-game-form__arial-line span.active {
     color: #fed748;
@@ -339,7 +341,8 @@
     margin-left: 32px;
 }
 
-.new-game-form__button:hover, .new-game-form__submit:hover {
+.new-game-form__button:hover,
+.new-game-form__submit:hover {
     background: #fed748;
     color: #ec782c;
 }
@@ -431,7 +434,8 @@
     font-size: 1.1rem;
 }
 
-.new-game-form__pawn-details-skills, .new-game-form__pawn-details-traits {
+.new-game-form__pawn-details-skills,
+.new-game-form__pawn-details-traits {
     margin-top: 8px;
     display: flex;
     flex-direction: column;
@@ -447,4 +451,129 @@
 .new-game-form__pawn-details-list-item--value {
     margin-left: 8px;
     color: #fed748;
+}
+
+/* LOAD GAME */
+.load-game-menu {
+    width: 100%;
+    display: grid;
+    grid-template-rows: 128px 1fr;
+    justify-content: center;
+}
+
+.load-game-menu__title {
+    align-self: center;
+    justify-self: center;
+    font-size: 2rem;
+    background-color: #2c7265e6;
+    padding: 8px 16px;
+    color: #fed748;
+}
+
+.load-game-menu__games {
+    display: flex;
+    flex-direction: column;
+    background-color: #5c5c5c;
+    align-items: center;
+    padding: 20px 40px;
+    margin-bottom: 10px;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
+.load-game-menu__games::-webkit-scrollbar {
+    width: 10px;
+    /* Width of the scrollbar */
+}
+
+.load-game-menu__games::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the track */
+}
+
+.load-game-menu__games::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scroll thumb */
+}
+
+.load-game-menu__games::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color of the scroll thumb on hover */
+}
+
+.game__save-container {
+    background-color: #707070;
+    padding: 0px 40px 20px 40px;
+    margin-bottom: 10px;
+    max-height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.game__save-container::-webkit-scrollbar {
+    width: 10px;
+    /* Width of the scrollbar */
+}
+
+.game__save-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Color of the track */
+}
+
+.game__save-container::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Color of the scroll thumb */
+}
+
+.game__save-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Color of the scroll thumb on hover */
+}
+
+.game__title {
+    justify-self: center;
+    color: #fed748;
+    background-color: #555;
+    text-align: center;
+    padding: 4px;
+}
+
+.game__save {
+    margin-top: 10px;
+    width: 100%;
+    background-color: #5c5c5c;
+    padding: 20px 20px;
+    color: #fff;
+}
+
+.game__load-button, .game__delete-button {
+    border-radius: 8px;
+    border: solid 3px;
+    font-family: 'Philosopher', sans-serif;
+    font-size: 1rem;
+    padding: 6px 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.game__load-button {
+    background-color: #fccf2c;
+    border-color: #fed748;
+}
+
+.game__load-button:hover {
+    border-color: #fbe597;
+}
+
+.game__delete-button {
+    background-color: #e94c4c;
+    border-color: #e94c4c;
+    margin-left: 24px;
+}
+
+.game__delete-button:hover {
+    border-color: #e18080;
 }

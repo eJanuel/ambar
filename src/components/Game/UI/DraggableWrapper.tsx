@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Draggable from "react-draggable";
-import { updatePosition } from "../../../redux/reducers/game/UI.reducer";
+import { updateDraggablePosition } from "../../../redux/reducers/game/UI.reducer";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../redux/types/Store.types";
+import { DragLockIcon } from "../../Icons/UI/DragLock.icon";
+import { SettingsIcon } from "../../Icons/UI/SettingsIcon";
 
 interface DraggableWrapperProps {
   children: React.ReactNode;
-  options: any[]; // replace with the type of your options
+  options: any[]; // replace with the options type
   UIidentifier: number;
   position?: { x: number; y: number };
 }
@@ -34,21 +36,26 @@ const DraggableWrapper: React.FC<DraggableWrapperProps> = ({
     <Draggable
       axis="both"
       bounds="parent"
-      defaultPosition={position}
+      position={position}
       scale={1}
-      disabled={!isDraggable}
+      disabled={isDraggable}
       onStop={(_e, data) => {
-        dispatch(updatePosition({ id: UIidentifier, position: { x: data.x, y: data.y } }));
+        if (!(data.x === position?.x && data.y === position?.y)) {
+          dispatch(
+            updateDraggablePosition({
+              id: UIidentifier,
+              position: { x: data.x, y: data.y },
+            })
+          );
+        }
       }}
     >
-      <div className="UI--item">
+      <div className="UI--item UI--item__draggable">
         {children}
-        <button onClick={toggleDraggable}>
-          {isDraggable ? "Disable Drag" : "Enable Drag"}
-        </button>
-        <button onClick={toggleOptions}>
-          {showOptions ? "Hide Options" : "Show Options"}
-        </button>
+        <div className="UI--item--options">
+          <DragLockIcon onClick={toggleDraggable} isLocked={isDraggable} />
+          <SettingsIcon onClick={toggleOptions} />
+        </div>
         {showOptions && (
           <ul>
             {options.map((option, index) => (

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Map } from '../../game/types/Map.types';
+import { Map } from '../../types/Map.types';
 
 
 export const toggleBlockVisibility = createAction<number>('map/toggleBlockVisibility');
