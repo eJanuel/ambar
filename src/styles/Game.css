@@ -1,0 +1,43 @@
+.rendered--pawn-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background-color: #333333ae;
+    padding: 10px;
+}
+
+.rendered--pawn-infos.selected {
+    background-color: #4686e57c;
+}
+
+.rendered--pawn-name {
+    color: #fff;
+    font-family: "Contrail One";
+}
+
+.rendered--pawn-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.rendered--stamina-bar,
+.rendered--health-bar {
+    height: 10px;
+    width: 100px;
+    background-color: grey;
+}
+
+.rendered--stamina-bar div,
+.rendered--health-bar div {
+    height: 10px;
+}
+
+.rendered--stamina-bar div {
+    background-color: #feca3c;
+}
+
+.rendered--health-bar div {
+    background-color: rgb(251, 64, 64);
+}

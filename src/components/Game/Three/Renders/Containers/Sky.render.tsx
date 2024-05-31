@@ -20,6 +20,7 @@ export const SkyRender: React.FC = () => {
   const sunPosition = calculatePosition(angle, distance);
   const moonPosition = calculatePosition(angle + 180, distance);
   const sunVector = new Vector3(sunPosition.x, sunPosition.y, 0);
+  
   return (
     <>
       <ambientLight intensity={0.1} />

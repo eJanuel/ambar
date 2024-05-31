@@ -6,9 +6,12 @@ import {
   setSpeed,
   togglePause,
 } from "../../../redux/reducers/game/Clock.reducer";
+import { PlayIcon } from "../../Icons/UI/Play.icon";
+import { PauseIcon } from "../../Icons/UI/Pause.icon";
 
-
-export const TimeBarUI: React.FC = () => {
+export const TimeBarUI: React.FC<{ display: "row" | "column" }> = ({
+  display,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const {
     speed,
@@ -32,67 +35,49 @@ export const TimeBarUI: React.FC = () => {
   };
 
   return (
-    <>
-      <div id="ui-timeBar">
-        <button
-          className={`UI--speedControls__button ${
-            isPaused
-              ? "UI--speedControls__button-resume"
-              : "UI--speedControls__button-pause"
-          }`}
-          onClick={() => dispatch(togglePause())}
-        >
-          {isPaused ? "Resume" : "Pause"}
+    <div id="ui-timeBar" className={`ui--item__container item__${display}`}>
+      <div className="timeBar--buttons">
+        <button className="timeBar--button-play">
+          {isPaused ? (
+            <PlayIcon onClick={() => dispatch(togglePause())} />
+          ) : (
+            <PauseIcon onClick={() => dispatch(togglePause())} />
+          )}
         </button>
         <button
-          className={`UI--speedControls__button ${
-            speed === 1 ? "UI--speedControls__button-disabled" : ""
-          }`}
+          className={`timeBar--button-speed ${speed === 1 && "button--selected"}`}
           onClick={() => handleClick(1)}
           disabled={speed === 1}
         >
           x1
         </button>
         <button
-          className={`UI--speedControls__button ${
-            speed === 2 ? "UI--speedControls__button-disabled" : ""
-          }`}
+          className={`timeBar--button-speed ${speed === 2 && "button--selected"}`}
           onClick={() => handleClick(2)}
           disabled={speed === 2}
         >
           x2
         </button>
         <button
-          className={`UI--speedControls__button ${
-            speed === 3 ? "UI--speedControls__button-disabled" : ""
-          }`}
+          className={`timeBar--button-speed ${speed === 3 && "button--selected"}`}
           onClick={() => handleClick(3)}
           disabled={speed === 3}
         >
           x3
         </button>
         <button
-          className={`UI--speedControls__button ${
-            speed === 30 ? "UI--speedControls__button-disabled" : ""
-          }`}
-          onClick={() => handleClick(30)}
-          disabled={speed === 30}
-        >
-          x30
-        </button>
-        <button
-          className={`UI--speedControls__button ${
-            speed === 300 ? "UI--speedControls__button-disabled" : ""
-          }`}
+          className={`timeBar--button-speed ${speed === 300 && "button--selected"}`}
           onClick={() => handleClick(300)}
           disabled={speed === 300}
         >
           x300
         </button>
       </div>
-      <div className="UI--timeDisplay">
-        {gameDays}d {gameHours}h {gameMinutes}m
+      <div className="timeBar--timeDisplay">
+        <span>
+          <em>{gameDays}d</em> <em>{gameHours}h</em> <em>{gameMinutes}m</em>
+        </span>
       </div>
-    </>
+    </div>
   );
 };

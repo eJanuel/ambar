@@ -6,9 +6,14 @@ import {
   setDisplayedLayer,
   setLayerOpacity,
 } from "../../../redux/reducers/game/UI.reducer";
+import { KbArrowDoubleUpIcon } from "../../Icons/UI/KbArrowDoubleUp.icon";
+import { KbArrowUpIcon } from "../../Icons/UI/KbArrowUp.icon";
+import { KbArrowDownIcon } from "../../Icons/UI/KbArrowDown.icon";
+import { KbArrowDoubleDownIcon } from "../../Icons/UI/KbArrowDoubleDown.icon";
 
-
-export const LayerBarUI: React.FC = () => {
+export const LayerBarUI: React.FC<{ display: "row" | "column" }> = ({
+  display,
+}) => {
   const dispatch = useDispatch<AppDispatch>();
   const { opacity, displayed }: { opacity: number; displayed: number } =
     useSelector((state: RootState) => state.ui.layers);
@@ -22,29 +27,28 @@ export const LayerBarUI: React.FC = () => {
   };
 
   return (
-    <div id="ui-layerBar" className="UI--layerBar">
-      <div className="UI--layerBar--title">Displayed Layer</div>
-      <div className="UI--layerBar--layer">{displayed}</div>
+    <div id="ui-layerBar" className={`ui--item__container item__${display}`}>
+      <div className="layerBar--displayed">
+        <KbArrowDoubleUpIcon
+          onClick={() => handleLayerChange(displayed + 10)}
+        />
+        <KbArrowUpIcon onClick={() => handleLayerChange(displayed + 1)} />
+        <span>{displayed}</span>
+        <KbArrowDownIcon onClick={() => handleLayerChange(displayed - 1)} />
+        <KbArrowDoubleDownIcon
+          onClick={() => handleLayerChange(displayed - 10)}
+        />
+      </div>
 
-      <button
-        className="UI--layerBar--button"
-        onClick={() => handleLayerChange(displayed + 1)}
-      >
-        +
-      </button>
-      <button
-        className="UI--layerBar--button"
-        onClick={() => handleLayerChange(displayed - 1)}
-      >
-        -
-      </button>
-      <input
-        type="range"
-        min={0}
-        max={100}
-        value={opacity}
-        onChange={(e) => handleOpacityChange(Number(e.target.value))}
-      />
+      <div className="layerBar--opacity">
+        <input
+          type="range"
+          min={0}
+          max={100}
+          value={opacity}
+          onChange={(e) => handleOpacityChange(Number(e.target.value))}
+        />
+      </div>
     </div>
   );
 };

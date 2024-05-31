@@ -1,21 +1,26 @@
-import React, { memo, useRef } from "react";
-import { useSelector } from "react-redux";
+import React, { memo, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import * as THREE from "three";
 
-import { RootState } from "../../../../../redux/types/Store.types";
+import { AppDispatch, RootState } from "../../../../../redux/types/Store.types";
 
 import HorizontalLayer from "./HorizontalLayer.render";
 
 import { Map } from "../../../../../types/Map.types";
-
+import { setDisplayedLayer } from "../../../../../redux/reducers/game/UI.reducer";
 
 export const MapRender: React.FC<{ map: Map }> = memo(
   ({ map }) => {
+    const dispatch = useDispatch<AppDispatch>();
     const ref = useRef<THREE.Group | null>(null);
 
-    const { size } = useSelector(
+    const { size, height } = useSelector(
       (state: RootState) => state.map.gridMap.dimensions
     );
+
+    useEffect(() => {
+      dispatch(setDisplayedLayer(height));
+    }, [dispatch]);
 
     return (
       <group ref={ref}>

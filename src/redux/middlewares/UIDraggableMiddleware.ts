@@ -1,6 +1,6 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { RootState } from "../types/Store.types";
-import { updateDraggablePosition } from "../reducers/game/UI.reducer";
+import { toggleDraggableDirection, updateDraggablePosition } from "../reducers/game/UI.reducer";
 import { IndexedDBHelper } from "../../helpers/IndexDB.helper";
 
 const UIDraggableMiddleware: Middleware<{}, RootState> = storeAPI => next => (action: any) => {
@@ -11,7 +11,16 @@ const UIDraggableMiddleware: Middleware<{}, RootState> = storeAPI => next => (ac
         const state = storeAPI.getState();
         const { indexDB }: { indexDB: IndexedDBHelper } = state.db;
 
-        indexDB.put("settings", id.toString(), position);
+        indexDB.put("settings", "position#" + id.toString(), position);
+    }
+
+    if (action.type === toggleDraggableDirection.type) {
+        const { id }: { id: number } = action.payload;
+        const state = storeAPI.getState();
+        const { indexDB }: { indexDB: IndexedDBHelper } = state.db;
+        const direction: "row" | "column" = state.ui.draggableDirections[id];
+
+        indexDB.put("settings", "direction#" + id.toString(), direction);
     }
 
     return result;

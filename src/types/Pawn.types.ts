@@ -1,4 +1,7 @@
+import { ACTIONS_ENUM } from "./enums/Actions.enums";
 import { BONES_ENUM } from "./enums/Bones.enum";
+
+
 
 export interface Pawn {
     entity: Entity;
@@ -14,6 +17,8 @@ export interface Pawn {
 export interface Entity {
     id: string;
     position: { x: number; y: number; z: number };
+    targetPosition?: { x: number; y: number; z: number };
+    action: ACTIONS_ENUM;
 }
 
 export interface Infos {

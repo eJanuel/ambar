@@ -1,21 +1,23 @@
 @font-face {
   font-family: 'Philosopher';
   src: url('/fonts/Philosopher-Regular.ttf') format('truetype'),
-       url('/fonts/Philosopher-Bold.ttf') format('truetype'),
-       url('/fonts/Philosopher-Italic.ttf') format('truetype'),
-       url('/fonts/Philosopher-BoldItalic.ttf') format('truetype');
+    url('/fonts/Philosopher-Bold.ttf') format('truetype'),
+    url('/fonts/Philosopher-Italic.ttf') format('truetype'),
+    url('/fonts/Philosopher-BoldItalic.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Anton';
-  src: url('/fonts/Anton-Regular.ttf') format('truetype');
+  font-family: 'Contrail One';
+  src: url('/fonts/ContrailOne-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
-html, body, input {
+html,
+body,
+input {
   margin: 0;
   padding: 0;
 }
@@ -28,7 +30,12 @@ body {
   overflow: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
 }
@@ -40,5 +47,10 @@ ul {
 }
 
 #root {
-  display: grid;
+  display: flex;
+}
+
+#game-container {
+  width: 100vw;
+  height: 100vh;
 }

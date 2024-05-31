@@ -2,6 +2,7 @@
 import { MasculineFirstNames, FeminineFirstNames, LastNames } from "../../datas/Names.list";
 import { Traits } from "../../datas/Traits.list";
 import { Body, Entity, Faction, Gear, Infos, Inventory, Pawn, Skills, Trait } from "../../types/Pawn.types";
+import { ACTIONS_ENUM } from "../../types/enums/Actions.enums";
 
 export const generateRandomPawn = (id: string, position: { x: number; y: number; z: number }): Pawn => {
   let bioAge: number = generateRandomBioAge();
@@ -13,6 +14,7 @@ export const generateRandomPawn = (id: string, position: { x: number; y: number;
   const entity: Entity = {
     id,
     position,
+    action: ACTIONS_ENUM.IDLE,
   };
   const body: Body = { type: 'humanoid', skeleton: [] }
   const infos: Infos = { firstName: generateRandomFirstName(Math.random() < 0.5), lastName: generateRandomLastName(), biologicalAge: bioAge, chronologicalAge: generateRandomChronoAge(bioAge), experience: 0, level: 0 };

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const SettingsIcon: React.FC<{ onClick?: () => void }> = ({
+export const SettingsIcon: React.FC<{ onClick?: (e: React.MouseEvent) => void }> = ({
   onClick,
 }) => {
   const [isHovered, setHover] = useState(false);

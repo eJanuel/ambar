@@ -20,14 +20,21 @@ const HorizontalLayer: React.FC<{ index: number; cells: MapCell[] }> = ({
   const { size }: { size: number } = useSelector(
     (state: RootState) => state.map.gridMap.dimensions
   );
+  const { hoveredObject }: { hoveredObject: string } = useSelector(
+    (state: RootState) => state.ui
+  );
 
   return (
     <Fragment key={index}>
-      {displayed === index ? (
+      {displayed === index + 1 ? (
         cells.map(({ coordinates, surface }) => {
           if (surface.type === VOID_TYPES_ENUM.AIR) {
             return (
               <BlockMemo
+                hovered={
+                  hoveredObject ===
+                  `block#${coordinates.x}-${coordinates.y}-${coordinates.z}`
+                }
                 key={`${coordinates.x}-${coordinates.y}-${coordinates.z}`}
                 position={{
                   x: coordinates.x,
@@ -46,6 +53,10 @@ const HorizontalLayer: React.FC<{ index: number; cells: MapCell[] }> = ({
           return (
             <BlockMemo
               key={`${coordinates.x}-${coordinates.y}-${coordinates.z}`}
+              hovered={
+                hoveredObject ===
+                `block#${coordinates.x}-${coordinates.y}-${coordinates.z}`
+              }
               position={{
                 x: coordinates.x,
                 y: coordinates.y,
@@ -67,7 +78,7 @@ const HorizontalLayer: React.FC<{ index: number; cells: MapCell[] }> = ({
               size: 128 * size,
               height: 256,
             },
-            isTransparent: displayed < index,
+            isTransparent: displayed < index + 1,
           }}
         />
       )}
